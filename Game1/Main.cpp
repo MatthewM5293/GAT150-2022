@@ -15,9 +15,14 @@ int main()
 	int width = 1200;
 	int height = 1000;
 	neu::g_renderer.CreateWindow("Gaming", width, height);
-	neu::g_renderer.SetClearColor(neu::Color{ 0, 0, 0, 255 });
+	neu::g_renderer.SetClearColor(neu::Color{ 0, 255, 255, 255 });
 
-	std::cout << "Hello World!" << std::endl;
+	//std::cout << "Hello World!" << std::endl;
+
+	//sprite/image
+	std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
+	texture->Create(neu::g_renderer, "ElGato.png");
+
 
 	bool gaming = true;
 	while (gaming)
@@ -28,10 +33,12 @@ int main()
 		//audio
 		neu::g_audioSystem.Update();
 
-		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = true;
+		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
 		//render
 		neu::g_renderer.BeginFrame();
+		//images
+		neu::g_renderer.Draw(texture, { 400, 300 }, 0);
 		neu::g_renderer.EndFrame();
 	}
 	//shut
