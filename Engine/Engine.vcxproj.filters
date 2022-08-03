@@ -16,9 +16,6 @@
     <Filter Include="Source\Math">
       <UniqueIdentifier>{7dd5b1fa-9c9d-40eb-b136-4baffacd1112}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core">
-      <UniqueIdentifier>{88c68642-c305-4592-9f76-9893ba3af0b8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Renderer">
       <UniqueIdentifier>{047bf605-2d18-4ecc-9e32-67445d82fa6d}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Source\Audio">
       <UniqueIdentifier>{6f06cb25-ac60-474e-ad45-07ee587f600a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{88c68642-c305-4592-9f76-9893ba3af0b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +93,9 @@
     <ClInclude Include="Renderer\Texture.h">
       <Filter>Source\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Logger.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="Renderer\Texture.cpp">
       <Filter>Source\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Logger.cpp">
+      <Filter>Source\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

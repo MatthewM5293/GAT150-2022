@@ -1,8 +1,17 @@
 #include "Engine.h"
 #include <iostream>
 
-int main() 
+int main()
 {
+	{//int i = 10;
+	//float f = 3.5f;
+	//bool b = false;
+
+	//const char* s = "LOL!";
+	////std::cout << i << f << b;
+	//printf("hello world %d %.2f %d %s\n", i, f, b, s);
+	}
+
 	neu::InitializeMemory();
 	neu::SetFilePath("../Assets");
 
@@ -22,6 +31,7 @@ int main()
 	//sprite/image
 	std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
 	texture->Create(neu::g_renderer, "ElGato.png");
+
 
 
 	bool gaming = true;
