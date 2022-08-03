@@ -9,8 +9,8 @@ namespace neu
 {
 // !! forward declaration for Renderer below 
 	class Renderer;
-class Texture
-{
+	class Texture
+	{
 public:
 	Texture() = default;
 	~Texture();
@@ -24,5 +24,5 @@ public:
 
 private:
 	SDL_Texture* m_texture = nullptr;
-};
+	};
 }

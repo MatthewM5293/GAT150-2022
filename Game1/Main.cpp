@@ -15,7 +15,7 @@ int main()
 	int width = 1200;
 	int height = 1000;
 	neu::g_renderer.CreateWindow("Gaming", width, height);
-	neu::g_renderer.SetClearColor(neu::Color{ 0, 255, 255, 255 });
+	neu::g_renderer.SetClearColor(neu::Color{ 21, 130, 173, 255 });
 
 	//std::cout << "Hello World!" << std::endl;
 
