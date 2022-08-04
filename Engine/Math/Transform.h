@@ -7,6 +7,7 @@ namespace neu
 	{
 		Vector2 position;
 		float rotation;
-		float scale;
+		//float scale;
+		Vector2 scale{ 1, 1 };
 	};
 }

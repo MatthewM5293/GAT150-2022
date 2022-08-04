@@ -62,23 +62,17 @@ namespace neu
 		float GetAngle();
 		static Vector2 Rotate(const Vector2& v, float angle);
 
+		static const Vector2 one;
+		static const Vector2 zero;
+		static const Vector2 up;
+		static const Vector2 down;
+		static const Vector2 left;
+		static const Vector2 right;
+
 	/*Vector2 Add(const Vector2& v) { return Vector2{v.x + x, v.y + y}; }*/
 	};
 
-	inline std::istream& operator >> (std::istream& stream, Vector2& v)
-	{
-		std::string line;
-		std::getline(stream, line);
-		
-		// { ##, ## }
-		std::string xs = line.substr(line.find("{") + 1, line.find(",") - line.find("{") - 1);
-		v.x = std::stof(xs);
-		
-		std::string ys = line.substr(line.find(",") + 1, line.find("}") - line.find(",") - 1);
-		v.y = std::stof(ys);;
-
-		return stream;
-	}
+	std::istream& operator >> (std::istream& stream, Vector2& v);
 
 	//declarations
 	inline float Vector2::LengthSqr()

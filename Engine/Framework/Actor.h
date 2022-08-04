@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Math/Vector2.h"
 #include "../Renderer/Model.h"
 
 namespace neu
@@ -15,7 +16,7 @@ namespace neu
 		virtual void Draw(Renderer& renderer);
 
 		virtual void OnCollision(Actor* other) {}
-		float GetRadius() { return m_model.GetRadius() * m_transform.scale; }
+		float GetRadius() { return m_model.GetRadius() * std::max(m_transform.scale.x, m_transform.scale.y); }
 		std::string& GetTag() { return m_tag; }
 
 		friend class Scene;

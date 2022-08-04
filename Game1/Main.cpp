@@ -1,16 +1,29 @@
 #include "Engine.h"
 #include <iostream>
 
+//code --> preprocessor --> compiler --> (.o, .o, .o) --> link --> .exe
+int add(int a, int b)
+{
+	return a + b;
+}
+
+constexpr int add_c(int a, int b)
+{
+	return a + b;
+}
+
 int main()
 {
-	{//int i = 10;
-	//float f = 3.5f;
-	//bool b = false;
+	const int i = 5;
 
-	//const char* s = "LOL!";
-	////std::cout << i << f << b;
-	//printf("hello world %d %.2f %d %s\n", i, f, b, s);
-	}
+	int i2 = add(6, 7);
+	constexpr int i3 = add_c(6, 7); //compile time functions
+
+	constexpr float degrees = math::RadtoDeg(math::Pi);
+
+	std::cout << __FILE__ << std::endl; //FILE DIRECTORY
+	std::cout << __LINE__ << std::endl; // LINE OF CODE
+	std::cout << __FUNCTION__ << std::endl;// WHERE ITS CALLED
 
 	neu::InitializeMemory();
 	neu::SetFilePath("../Assets");
@@ -24,7 +37,7 @@ int main()
 	int width = 1200;
 	int height = 1000;
 	neu::g_renderer.CreateWindow("Gaming", width, height);
-	neu::g_renderer.SetClearColor(neu::Color{ 21, 130, 173, 255 });
+	neu::g_renderer.SetClearColor(neu::Color::black); //old color: neu::Color{ 21, 130, 173, 255 }
 
 	//std::cout << "Hello World!" << std::endl;
 
@@ -32,6 +45,8 @@ int main()
 	std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
 	texture->Create(neu::g_renderer, "ElGato.png");
 
+
+	float angel = 0;
 
 
 	bool gaming = true;
@@ -45,10 +60,12 @@ int main()
 
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
+		angel += 90.0f * neu::g_time.deltaTime;
+
 		//render
 		neu::g_renderer.BeginFrame();
 		//images
-		neu::g_renderer.Draw(texture, { 400, 300 }, 0);
+		neu::g_renderer.Draw(texture, { 600, 600 }, angel, {0.5f , 0.5f}, { 0.5f, 0.5f });
 		neu::g_renderer.EndFrame();
 	}
 	//shut
