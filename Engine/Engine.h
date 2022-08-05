@@ -9,13 +9,16 @@
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
 
+#include "Components/PlayerComponent.h"
+#include "Components/SpriteComponent.h"
+
 #include "Input/InputSystem.h"
+#include "Audio/AudioSystem.h"
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
-
-#include "Audio/AudioSystem.h"
+#include "Renderer/Texture.h"
 
 #include <memory>
 
