@@ -34,7 +34,7 @@ int main()
 	actor->AddComponent(std::move(sComponent));
 	scene.Add(std::move(actor));
 
-	float angel = 0;
+	float angle = 0;
 
 	bool gaming = true;
 	while (gaming)
@@ -48,7 +48,7 @@ int main()
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
 		//update scene
-		angel += 90.0f * neu::g_time.deltaTime;
+		angle += 90.0f * neu::g_time.deltaTime;
 		scene.Update();
 
 		//render
@@ -56,7 +56,7 @@ int main()
 		
 		scene.Draw(neu::g_renderer);
 		//images
-		neu::g_renderer.Draw(texture, { 600, 600 }, angel, {0.5f , 0.5f}, { 0.5f, 0.5f });
+		neu::g_renderer.Draw(texture, { 600, 600 }, angle, {0.5f , 0.5f}, { 0.5f, 0.5f });
 
 		neu::g_renderer.EndFrame();
 	}

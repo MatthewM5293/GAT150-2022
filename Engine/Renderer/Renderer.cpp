@@ -106,7 +106,7 @@ namespace neu
 		dest.h = (int)size.y;// !! set to size y 
 
 		SDL_Point center{ (int)origin.x, (int)origin.y };
-		//transform.rotation = angel
+		//transform.rotation = angle
 		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, transform.rotation, &center, SDL_FLIP_NONE); //SDL_FLIP_NONE //SDL_FLIP_HORIZONTAL //SDL_FLIP_VERTICAL
 	}
 }
