@@ -24,7 +24,8 @@ int main()
 	//Create actors
 	neu::Scene scene;
 
-	neu::Transform transform{ {100, 100}, 90, {0.5f, 0.5f } };
+							//position, angle, scale
+	neu::Transform transform{ {100, 100}, 0, {0.5f, 0.5f } };
 	std::unique_ptr<neu::Actor> actor = std::make_unique<neu::Actor>(transform);
 	std::unique_ptr<neu::PlayerComponent> pComponent = std::make_unique<neu::PlayerComponent>();
 	actor->AddComponent(std::move(pComponent));
@@ -48,7 +49,7 @@ int main()
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
 		//update scene
-		angle += 90.0f * neu::g_time.deltaTime;
+		//angle += 90.0f * neu::g_time.deltaTime;
 		scene.Update();
 
 		//render
