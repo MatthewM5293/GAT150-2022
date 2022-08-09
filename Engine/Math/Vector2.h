@@ -15,6 +15,8 @@ namespace neu
 		Vector2(int x, int y) : x{ (float)x }, y{(float)y } {}
 
 		void Set(float x, float y) { this->x = x; this->y = y; }
+		float operator [] (size_t index) const { return (&x)[index]; } //(index == 0) ? x : y; }
+		float& operator [] (size_t index) { return (&x)[index]; } //(index == 0) ? x : y; }
 
 		//arithmetic operators
 		//Vector 2 = Vector2 + Vector2
