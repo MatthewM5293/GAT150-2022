@@ -12,7 +12,7 @@ namespace neu
 		virtual void Draw(Renderer& renderer) override;
 
 	public:
-		std::shared_ptr<Texture> m_texture;
+		std::shared_ptr<Texture> m_texture; //to model for modelComponent
 
 
 	protected:
