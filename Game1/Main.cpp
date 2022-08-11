@@ -20,21 +20,30 @@ int main()
 	//sprite/image
 	std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
 	texture->Create(neu::g_renderer, "Textures/Enemy.png");
+	
+	std::shared_ptr<neu::Model> model = std::make_shared<neu::Model>();
+	model->Create("Models/Player.txt");
+	
 	//audio
 	neu::g_audioSystem.AddAudio("laser", "Audio/laser_shoot.wav");
 
 	//Create actors
 	neu::Scene scene;
-
 							//position, angle, scale
-	neu::Transform transform{ {400, 400}, 0, {1, 1 } };
+	neu::Transform transform{ {500, 500}, 0, {3, 3 } };
 	std::unique_ptr<neu::Actor> actor = std::make_unique<neu::Actor>(transform);
 	std::unique_ptr<neu::PlayerComponent> pComponent = std::make_unique<neu::PlayerComponent>();
 	actor->AddComponent(std::move(pComponent));
 	
-	std::unique_ptr<neu::SpriteComponent> sComponent = std::make_unique<neu::SpriteComponent>();
+	//Player Sprite
+	/*std::unique_ptr<neu::SpriteComponent> sComponent = std::make_unique<neu::SpriteComponent>();
 	sComponent->m_texture = texture;
-	actor->AddComponent(std::move(sComponent));
+	actor->AddComponent(std::move(sComponent));*/
+
+	//model
+	std::unique_ptr<neu::ModelComponent> mComponent = std::make_unique<neu::ModelComponent>();
+	mComponent->m_model = model;
+	actor->AddComponent(std::move(mComponent));
 
 	std::unique_ptr<neu::AudioComponent> aComponent = std::make_unique<neu::AudioComponent>();
 	aComponent->m_soundname = "laser";
@@ -42,6 +51,16 @@ int main()
 
 	std::unique_ptr<neu::PhysicsComponent> phComponent = std::make_unique<neu::PhysicsComponent>();
 	actor->AddComponent(std::move(phComponent));
+
+	//child actor
+	neu::Transform transformC{ {40, 30}, 0, {1, 1 } }; //relative of parent
+	std::unique_ptr<neu::Actor> child = std::make_unique<neu::Actor>(transformC);
+
+	std::unique_ptr<neu::ModelComponent> mComponentC = std::make_unique<neu::ModelComponent>();
+	mComponentC->m_model = model;
+	child->AddComponent(std::move(mComponentC));
+
+	actor->AddChild(std::move(child));
 
 	scene.Add(std::move(actor));
 
@@ -59,7 +78,7 @@ int main()
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
 		//update scene
-		//angle += 90.0f * neu::g_time.deltaTime;
+		angle += 360.0f * neu::g_time.deltaTime; //rotation
 		scene.Update();
 
 		//render

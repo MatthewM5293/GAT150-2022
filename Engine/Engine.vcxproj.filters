@@ -126,6 +126,9 @@
     <ClInclude Include="Math\Matrix3x3.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Components\ModelComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Math\Matrix3x3.cpp">
       <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ModelComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
