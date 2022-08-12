@@ -61,35 +61,26 @@ namespace neu
 		result[1][2] = rows[1][0] * mx[1][2] + rows[1][1] * mx[1][2] + rows[1][2] * mx[2][2];
 		
 		//row3
-		result[1][0] = rows[2][0] * mx[2][0] + rows[2][1] * mx[2][0] + rows[2][2] * mx[2][0];
-		result[1][1] = rows[2][0] * mx[2][1] + rows[2][1] * mx[2][1] + rows[2][2] * mx[2][1];
-		result[1][2] = rows[2][0] * mx[2][2] + rows[2][1] * mx[2][2] + rows[2][2] * mx[2][2];
+		result[2][0] = rows[2][0] * mx[2][0] + rows[2][1] * mx[2][0] + rows[2][2] * mx[2][0];
+		result[2][1] = rows[2][0] * mx[2][1] + rows[2][1] * mx[2][1] + rows[2][2] * mx[2][1];
+		result[2][2] = rows[2][0] * mx[2][2] + rows[2][1] * mx[2][2] + rows[2][2] * mx[2][2];
 		
 		return result;
 	}
 
 	inline Matrix3x3 Matrix3x3::CreateScale(const Vector2& scale)
 	{
-		Matrix3x3 mx;
-		//sX  0   0
-		//0   sY  0
-		//0   0   sZ
+		Matrix3x3 mx = identity;
 
 		mx[0][0] = scale.x;
 		mx[1][1] = scale.y;
-		//mx[2][2] = scale.z;
-		//OR
-		/*
-		mx[0] = Vector3{ scale.x, 0.0f, 0.0f };
-		mx[1] = Vector3{ 0.0f, 0.0f, scale.y };
-		mx[2] = Vector3{ 0.0f, 0.0f, scale.z };
-		*/
+
 		return mx;
 	}
 
 	inline Matrix3x3 Matrix3x3::CreateScale(float scale)
 	{
-		Matrix3x3 mx;
+		Matrix3x3 mx = identity;
 
 		mx[0][0] = scale;
 		mx[1][1] = scale;
@@ -99,7 +90,7 @@ namespace neu
 
 	inline Matrix3x3 Matrix3x3::CreateRotation(float radians)
 	{
-		Matrix3x3 mx;
+		Matrix3x3 mx = identity;
 
 		float c = std::cos(radians);
 		float s = std::sin(radians);

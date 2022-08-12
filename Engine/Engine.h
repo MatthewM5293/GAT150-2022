@@ -17,6 +17,7 @@
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
+#include "Resource/ResourceManager.h"
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
@@ -33,4 +34,5 @@ namespace neu
 	extern Renderer g_renderer;
 	extern Time g_time;
 	extern AudioSystem g_audioSystem;
+	extern ResourceManager g_resourceManager;
 }

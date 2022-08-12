@@ -10,20 +10,23 @@ int main()
 	neu::g_renderer.Initialize();
 	neu::g_inputSystem.Initialize();
 	neu::g_audioSystem.Initialize();
+	neu::g_resourceManager.Initialize();
 
 	//create window
-	int width = 1200;
-	int height = 1000;
+	int width = 1200; //800
+	int height = 1000; //600
 	neu::g_renderer.CreateWindow("Gaming", width, height);
 	neu::g_renderer.SetClearColor(neu::Color::black); //old color: neu::Color{ 21, 130, 173, 255 }
 
 	//sprite/image
-	std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
-	texture->Create(neu::g_renderer, "Textures/Enemy.png");
-	
-	std::shared_ptr<neu::Model> model = std::make_shared<neu::Model>();
-	model->Create("Models/Player.txt");
-	
+	//std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
+	//texture->Create(neu::g_renderer, "Textures/Enemy.png");
+	std::shared_ptr<neu::Texture> texture = neu::g_resourceManager.Get<neu::Texture>("textures/player.png", &neu::g_renderer);
+
+	/*std::shared_ptr<neu::Model> model = std::make_shared<neu::Model>();
+	model->Create("Models/Player.txt");*/
+
+
 	//audio
 	neu::g_audioSystem.AddAudio("laser", "Audio/laser_shoot.wav");
 
@@ -42,7 +45,7 @@ int main()
 
 	//model
 	std::unique_ptr<neu::ModelComponent> mComponent = std::make_unique<neu::ModelComponent>();
-	mComponent->m_model = model;
+	mComponent->m_model = neu::g_resourceManager.Get<neu::Model>("Models/Player.txt");
 	actor->AddComponent(std::move(mComponent));
 
 	std::unique_ptr<neu::AudioComponent> aComponent = std::make_unique<neu::AudioComponent>();
@@ -57,7 +60,7 @@ int main()
 	std::unique_ptr<neu::Actor> child = std::make_unique<neu::Actor>(transformC);
 
 	std::unique_ptr<neu::ModelComponent> mComponentC = std::make_unique<neu::ModelComponent>();
-	mComponentC->m_model = model;
+	mComponentC->m_model = neu::g_resourceManager.Get<neu::Model>("Models/Player.txt");
 	child->AddComponent(std::move(mComponentC));
 
 	actor->AddChild(std::move(child));

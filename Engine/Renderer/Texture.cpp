@@ -12,6 +12,22 @@ namespace neu
         if (m_texture) SDL_DestroyTexture(m_texture);
     }
 
+    bool Texture::Create(const std::string& filename, void* data)
+    {
+        //check if data is not null
+        if (data)
+        {
+            Renderer* renderer = static_cast<Renderer*>(data);
+            return Create(*renderer, filename);
+        }
+        else 
+        {
+            return false;
+        }
+
+
+    }
+
     bool Texture::Create(Renderer& renderer, const std::string& filename)
     {
         // load surface 
