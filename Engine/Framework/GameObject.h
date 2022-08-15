@@ -1,6 +1,7 @@
 #pragma once
 #include "../Math/Transform.h"
 
+#define REGISTER_CLASS(class) Factory::Instance().Register<class>(#class)
 namespace neu
 {
 	class GameObject
@@ -9,9 +10,6 @@ namespace neu
 		GameObject() = default;
 		
 		virtual void Update() = 0;
-
-		//Transform& GetTransform() { return m_transform; }
-
 	};
 }
 

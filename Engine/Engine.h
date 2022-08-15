@@ -8,6 +8,8 @@
 
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
+#include "Framework/Factory.h"
+#include "Framework/Singleton.h"
 
 #include "Components/PlayerComponent.h"
 #include "Components/SpriteComponent.h"
@@ -35,4 +37,11 @@ namespace neu
 	extern Time g_time;
 	extern AudioSystem g_audioSystem;
 	extern ResourceManager g_resourceManager;
+
+	class Engine : public Singleton<Engine>
+	{
+	public:
+		void Register();
+		
+	};
 }

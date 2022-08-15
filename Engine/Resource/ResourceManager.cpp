@@ -10,6 +10,7 @@ namespace neu
 	void neu::ResourceManager::Shutdown()
 	{
 		//
+		m_resources.clear();
 	}
 
 }

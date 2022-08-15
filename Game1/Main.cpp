@@ -12,6 +12,8 @@ int main()
 	neu::g_audioSystem.Initialize();
 	neu::g_resourceManager.Initialize();
 
+	neu::Engine::Instance().Register();
+
 	//create window
 	int width = 1200; //800
 	int height = 1000; //600
@@ -34,8 +36,10 @@ int main()
 	neu::Scene scene;
 							//position, angle, scale
 	neu::Transform transform{ {500, 500}, 0, {3, 3 } };
-	std::unique_ptr<neu::Actor> actor = std::make_unique<neu::Actor>(transform);
-	std::unique_ptr<neu::PlayerComponent> pComponent = std::make_unique<neu::PlayerComponent>();
+	//std::unique_ptr<neu::Actor> actor = std::make_unique<neu::Actor>(transform);
+	std::unique_ptr<neu::Actor> actor = neu::Factory::Instance().Create<neu::Actor>("Actor");
+	actor->m_transform = transform;
+	std::unique_ptr<neu::Component> pComponent = neu::Factory::Instance().Create<neu::Component>("PlayerComponent");
 	actor->AddComponent(std::move(pComponent));
 	
 	//Player Sprite
@@ -52,7 +56,7 @@ int main()
 	aComponent->m_soundname = "laser";
 	actor->AddComponent(std::move(aComponent));
 
-	std::unique_ptr<neu::PhysicsComponent> phComponent = std::make_unique<neu::PhysicsComponent>();
+	std::unique_ptr<neu::Component> phComponent = neu::Factory::Instance().Create<neu::Component>("PhysicsComponent");
 	actor->AddComponent(std::move(phComponent));
 
 	//child actor
