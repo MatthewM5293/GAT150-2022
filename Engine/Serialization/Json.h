@@ -2,14 +2,11 @@
 #include "rapidjson/document.h" 
 #include <string> 
 
-namespace neu 
+namespace neu
 {
 	struct Color;
 	struct Vector2;
-}
 
-namespace neu
-{
 	namespace json
 	{
 		bool Load(const std::string& filename, rapidjson::Document& document);
