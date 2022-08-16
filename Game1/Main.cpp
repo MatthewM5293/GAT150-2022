@@ -6,6 +6,38 @@ int main()
 	neu::InitializeMemory();
 	neu::SetFilePath("../Assets");
 
+	rapidjson::Document document;
+	bool success = neu::json::Load("json.txt", document);
+	assert(success);
+
+	std::string str;
+	neu::json::Get(document, "string", str);
+	std::cout << str << std::endl;
+
+	bool b;
+	neu::json::Get(document, "boolean", b);
+	std::cout << b << std::endl;
+
+	int i1;
+	neu::json::Get(document, "integer1", i1);
+	std::cout << i1 << std::endl;
+
+	int i2;
+	neu::json::Get(document, "integer2", i2);
+	std::cout << i2 << std::endl;
+
+	float f;
+	neu::json::Get(document, "float", f);
+	std::cout << f << std::endl;
+
+	neu::Vector2 v2;
+	neu::json::Get(document, "vector2", v2);
+	std::cout << v2 << std::endl;
+
+	neu::Color color;
+	neu::json::Get(document, "color", color);
+	std::cout << color << std::endl;
+
 	//initilize engine
 	neu::g_renderer.Initialize();
 	neu::g_inputSystem.Initialize();
@@ -36,42 +68,6 @@ int main()
 
 	//Create actors
 	neu::Scene scene;
-							//position, angle, scale
-	neu::Transform transform{ {500, 500}, 0, {3, 3 } };
-	//std::unique_ptr<neu::Actor> actor = std::make_unique<neu::Actor>(transform);
-	std::unique_ptr<neu::Actor> actor = neu::Factory::Instance().Create<neu::Actor>("Actor");
-	actor->m_transform = transform;
-	std::unique_ptr<neu::Component> pComponent = neu::Factory::Instance().Create<neu::Component>("PlayerComponent");
-	actor->AddComponent(std::move(pComponent));
-	
-	//Player Sprite
-	/*std::unique_ptr<neu::SpriteComponent> sComponent = std::make_unique<neu::SpriteComponent>();
-	sComponent->m_texture = texture;
-	actor->AddComponent(std::move(sComponent));*/
-
-	//model
-	std::unique_ptr<neu::ModelComponent> mComponent = std::make_unique<neu::ModelComponent>();
-	mComponent->m_model = neu::g_resourceManager.Get<neu::Model>("Models/Player.txt");
-	actor->AddComponent(std::move(mComponent));
-
-	std::unique_ptr<neu::AudioComponent> aComponent = std::make_unique<neu::AudioComponent>();
-	aComponent->m_soundname = "laser";
-	actor->AddComponent(std::move(aComponent));
-
-	std::unique_ptr<neu::Component> phComponent = neu::Factory::Instance().Create<neu::Component>("PhysicsComponent");
-	actor->AddComponent(std::move(phComponent));
-
-	//child actor
-	neu::Transform transformC{ {40, 30}, 0, {1, 1 } }; //relative of parent
-	std::unique_ptr<neu::Actor> child = std::make_unique<neu::Actor>(transformC);
-
-	std::unique_ptr<neu::ModelComponent> mComponentC = std::make_unique<neu::ModelComponent>();
-	mComponentC->m_model = neu::g_resourceManager.Get<neu::Model>("Models/Player.txt");
-	child->AddComponent(std::move(mComponentC));
-
-	actor->AddChild(std::move(child));
-
-	scene.Add(std::move(actor));
 
 	float angle = 0;
 
@@ -100,6 +96,8 @@ int main()
 		neu::g_renderer.EndFrame();
 	}
 	//shut
+	neu::g_inputSystem.Shutdown();
+	neu::g_resourceManager.Shutdown();
 	neu::g_audioSystem.Shutdown();
 	neu::g_renderer.Shutdown();
 }

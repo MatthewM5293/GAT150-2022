@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -139,7 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\rapidjson\include;$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2-2.0.22\include;$(ProjectDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -190,6 +190,7 @@
     <ClInclude Include="Renderer\Texture.h" />
     <ClInclude Include="Resource\Resource.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
+    <ClInclude Include="Serialization\Json.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\AudioSystem.cpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="Renderer\Text.cpp" />
     <ClCompile Include="Renderer\Texture.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
+    <ClCompile Include="Serialization\Json.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Build\Assets\Asteriod.txt" />
