@@ -13,7 +13,7 @@ public:
 	Texture() = default;
 	~Texture();
 
-	bool Create(const std::string& filename, void* data = nullptr) override;
+	bool Create(std::string filename, ...) override;
 
 	bool Create(Renderer& renderer, const std::string& filename);
 

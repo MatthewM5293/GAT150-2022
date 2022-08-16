@@ -24,6 +24,8 @@ int main()
 	//std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
 	//texture->Create(neu::g_renderer, "Textures/Enemy.png");
 	std::shared_ptr<neu::Texture> texture = neu::g_resourceManager.Get<neu::Texture>("textures/player.png", &neu::g_renderer);
+	//font
+	//auto font = neu::g_resourceManager.Get<neu::Font>("fonts/arcadeclassic.ttf", 10);
 
 	/*std::shared_ptr<neu::Model> model = std::make_shared<neu::Model>();
 	model->Create("Models/Player.txt");*/
