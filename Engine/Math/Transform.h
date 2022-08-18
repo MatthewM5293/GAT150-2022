@@ -2,16 +2,22 @@
 #include "Vector2.h"
 #include "Matrix3x3.h"
 #include "MathUtils.h"
+#include "Serialization/Serializable.h"
 
 namespace neu
 {
-	struct Transform
+	struct Transform : public ISerializable
 	{
 		Vector2 position;
 		float rotation;
 		Vector2 scale{ 1, 1 };
 
 		Matrix3x3 matrix;
+
+
+		// Inherited via ISerializable
+		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
 
 		void Update()
 		{
@@ -40,5 +46,6 @@ namespace neu
 
 			return { mxTranslation * mxRotation * mxScale };
 		}
+
 	};
 }

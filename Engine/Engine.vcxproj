@@ -191,6 +191,7 @@
     <ClInclude Include="Resource\Resource.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Serialization\Json.h" />
+    <ClInclude Include="Serialization\Serializable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\AudioSystem.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Components\ModelComponent.cpp" />
     <ClCompile Include="Components\PhysicsComponent.cpp" />
     <ClCompile Include="Components\PlayerComponent.cpp" />
+    <ClCompile Include="Components\RenderComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Core\File.cpp" />
     <ClCompile Include="Core\Logger.cpp" />
@@ -211,6 +213,7 @@
     <ClCompile Include="Math\MathUtils.cpp" />
     <ClCompile Include="Math\Matrix2x2.cpp" />
     <ClCompile Include="Math\Matrix3x3.cpp" />
+    <ClCompile Include="Math\Transform.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Renderer\Font.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
@@ -228,6 +231,7 @@
     <Text Include="..\Build\Assets\Bullet_Fast.txt" />
     <Text Include="..\Build\Assets\Enemy.txt" />
     <Text Include="..\Build\Assets\Enemy2.txt" />
+    <Text Include="..\Build\Assets\level.txt" />
     <Text Include="..\Build\Assets\Player.txt" />
     <Text Include="..\Build\Assets\Star.txt" />
   </ItemGroup>

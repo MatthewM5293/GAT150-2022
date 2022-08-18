@@ -150,6 +150,9 @@
     <ClInclude Include="Serialization\Json.h">
       <Filter>Source\Serialization</Filter>
     </ClInclude>
+    <ClInclude Include="Serialization\Serializable.h">
+      <Filter>Source\Serialization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -230,6 +233,12 @@
     <ClCompile Include="Serialization\Json.cpp">
       <Filter>Source\Serialization</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Transform.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\RenderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Build\Assets\Player.txt">
@@ -257,6 +266,9 @@
       <Filter>Resources</Filter>
     </Text>
     <Text Include="..\Build\Assets\Star.txt">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="..\Build\Assets\level.txt">
       <Filter>Resources</Filter>
     </Text>
   </ItemGroup>
