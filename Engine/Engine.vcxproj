@@ -161,6 +161,7 @@
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\PlayerComponent.h" />
     <ClInclude Include="Components\RenderComponent.h" />
+    <ClInclude Include="Components\SpriteAnimComponent.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Core\File.h" />
     <ClInclude Include="Core\Logger.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Math\Matrix2x2.h" />
     <ClInclude Include="Math\Matrix3x3.h" />
     <ClInclude Include="Math\Random.h" />
+    <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
@@ -200,6 +202,7 @@
     <ClCompile Include="Components\PhysicsComponent.cpp" />
     <ClCompile Include="Components\PlayerComponent.cpp" />
     <ClCompile Include="Components\RenderComponent.cpp" />
+    <ClCompile Include="Components\SpriteAnimComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Core\File.cpp" />
     <ClCompile Include="Core\Logger.cpp" />

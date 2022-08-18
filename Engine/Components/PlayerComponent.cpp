@@ -52,8 +52,8 @@ namespace neu
 			component->ApplyForce(force);
 
 			//gravitational force
-			force = (Vector2{ 200, 200 } - m_owner->m_transform.position).Normalized() * 60.0f;
-			component->ApplyForce(force);
+			//force = (Vector2{ 200, 200 } - m_owner->m_transform.position).Normalized() * 60.0f;
+			//component->ApplyForce(force);
 		}
 
 		m_owner->m_transform.position += direction * 300 * g_time.deltaTime;

@@ -1,6 +1,7 @@
 #include "Actor.h"
 #include "Factory.h"
 #include "Components/RenderComponent.h"
+#include "Core/Logger.h"
 
 namespace neu 
 {
@@ -60,7 +61,7 @@ namespace neu
 
 		m_transform.Read(value["transform"]);
 
-		if (!value.HasMember("components") && !value["components"].IsArray())
+		if (value.HasMember("components") && value["components"].IsArray())
 		{
 			for (auto& componentValue : value["components"].GetArray())
 			{
@@ -74,6 +75,10 @@ namespace neu
 					AddComponent(std::move(component));
 				}
 			}
+		}
+		else 
+		{
+			LOG("Error reading Actor");
 		}
 
 		return true;

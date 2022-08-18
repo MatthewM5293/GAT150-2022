@@ -153,6 +153,12 @@
     <ClInclude Include="Serialization\Serializable.h">
       <Filter>Source\Serialization</Filter>
     </ClInclude>
+    <ClInclude Include="Math\Rect.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SpriteAnimComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -234,10 +240,13 @@
       <Filter>Source\Serialization</Filter>
     </ClCompile>
     <ClCompile Include="Math\Transform.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\Math</Filter>
     </ClCompile>
     <ClCompile Include="Components\RenderComponent.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SpriteAnimComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,19 @@
             {
                "type":"ModelComponent",
                "model_name":"models/player.txt"
+            },
+            {
+            "type":"PhysicsComponent",
+            "damping": "0.99f"
+            },
+            {
+            "type":"SpriteAnimComponent",
+            "texture_name":"nightmare-idle.png",
+            "fps":12,
+            "num_columns":4,
+            "num_rows":1,
+            "start_frame":1,
+            "end_frame":4
             }
          ]
       }

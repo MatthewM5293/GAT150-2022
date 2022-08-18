@@ -15,22 +15,13 @@ int main()
 	neu::Engine::Instance().Register();
 
 	//create window
-	int width = 1200; //800
-	int height = 1000; //600
+	int width = 800; //800
+	int height = 600; //600
 	neu::g_renderer.CreateWindow("Gaming", width, height);
 	neu::g_renderer.SetClearColor(neu::Color::black); //old color: neu::Color{ 21, 130, 173, 255 }
 
-	//sprite/image
-	//std::shared_ptr<neu::Texture> texture = std::make_shared<neu::Texture>();
-	//texture->Create(neu::g_renderer, "Textures/Enemy.png");
 	std::shared_ptr<neu::Texture> texture = neu::g_resourceManager.Get<neu::Texture>("textures/player.png", &neu::g_renderer);
-	//font
-	//auto font = neu::g_resourceManager.Get<neu::Font>("fonts/arcadeclassic.ttf", 10);
-
-	/*std::shared_ptr<neu::Model> model = std::make_shared<neu::Model>();
-	model->Create("Models/Player.txt");*/
-
-
+	
 	//audio
 	neu::g_audioSystem.AddAudio("laser", "Audio/laser_shoot.wav");
 
@@ -63,11 +54,10 @@ int main()
 		neu::g_renderer.BeginFrame();
 		
 		scene.Draw(neu::g_renderer);
-		//images (raw)
-		//neu::g_renderer.Draw(texture, { 600, 600 }, angle, {0.5f , 0.5f}, { 0.5f, 0.5f });
 
 		neu::g_renderer.EndFrame();
 	}
+
 	//shut
 	neu::g_inputSystem.Shutdown();
 	neu::g_resourceManager.Shutdown();
