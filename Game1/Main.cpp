@@ -10,6 +10,7 @@ int main()
 	neu::g_renderer.Initialize();
 	neu::g_inputSystem.Initialize();
 	neu::g_audioSystem.Initialize();
+	neu::g_physicsSystem.Initialize();
 	neu::g_resourceManager.Initialize();
 
 	neu::Engine::Instance().Register();
@@ -43,6 +44,9 @@ int main()
 		neu::g_inputSystem.Update();
 		//audio
 		neu::g_audioSystem.Update();
+
+		//physics
+		neu::g_physicsSystem.Update();
 
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 

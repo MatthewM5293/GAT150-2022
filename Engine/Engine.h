@@ -23,6 +23,7 @@
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
+#include "Physics/PhysicsSystem.h"
 #include "Resource/ResourceManager.h"
 
 #include "Renderer/Renderer.h"
@@ -41,6 +42,7 @@ namespace neu
 	extern Time g_time;
 	extern AudioSystem g_audioSystem;
 	extern ResourceManager g_resourceManager;
+	extern PhysicsSystem g_physicsSystem;
 
 	class Engine : public Singleton<Engine>
 	{

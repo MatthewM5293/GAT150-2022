@@ -7,6 +7,7 @@ namespace neu
 	Time g_time;
 	AudioSystem g_audioSystem;
 	ResourceManager g_resourceManager;
+	PhysicsSystem g_physicsSystem;
 	
 
 	void Engine::Register()
