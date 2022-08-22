@@ -10,12 +10,13 @@ namespace neu
 	public:
 		Component() = default;
 
+		virtual void Initialize() override {}
 		virtual void Update() = 0;
 
 		friend class Actor;
+
 	protected:
 		Actor* m_owner = nullptr;
-
 
 	};
 }

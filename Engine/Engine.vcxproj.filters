@@ -165,6 +165,9 @@
     <ClInclude Include="Physics\PhysicsSystem.h">
       <Filter>Source\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Components\RBPhysicsComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -256,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="Physics\PhysicsSystem.cpp">
       <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\RBPhysicsComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

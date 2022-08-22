@@ -33,6 +33,7 @@ int main()
 	bool success = neu::json::Load("level.txt", document);
 	assert(success);
 	scene.Read(document);
+	scene.Initialize();
 
 	float angle = 0;
 

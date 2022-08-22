@@ -16,6 +16,8 @@ namespace neu
 		Actor(const Transform& transform) : m_transform{ transform } {}
 		//Actor(Model model, Transform transform) : GameObject{ transform }, m_model{ model } {}
 
+		// Inherited via GameObject
+		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer);
 
@@ -56,6 +58,7 @@ namespace neu
 
 		std::vector<std::unique_ptr<Component>> m_components;
 		std::vector<std::unique_ptr<Actor>> m_children;
+
 	};
 
 	template<typename T>

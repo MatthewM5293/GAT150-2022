@@ -10,7 +10,7 @@ namespace neu
 		PhysicsComponent() = default;
 
 		void Update() override;
-		void ApplyForce(const Vector2& force) { acceleration += force; }
+		virtual void ApplyForce(const Vector2& force) { acceleration += force; }
 
 		// Inherited via Component
 		virtual bool Write(const rapidjson::Value& value) const override;
