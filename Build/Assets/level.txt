@@ -1,5 +1,51 @@
 {
    "actors":[
+     {
+         "type":"Actor",
+         "name":"Background",
+         "transform":{
+            "position":[
+               400,
+               300
+            ],
+            "scale":[
+               1,
+               1
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "texture_name":"Textures/background.png"
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"Floor",
+         "transform":{
+            "position":[
+               400,
+               540
+            ],
+            "scale":[
+               1,
+               1
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"RBPhysicsComponent",
+               "data.is_dynamic":false
+            },
+            {
+               "type":"CollisionComponent",
+               "data.size": [800, 24]
+            }
+         ]
+      },
       {
          "type":"Actor",
          "name":"Player",
@@ -10,32 +56,34 @@
                300
             ],
             "scale":[
-               2,
-               2
+               1,
+               1
             ],
             "rotation":0
          },
          "components":[
             {
                "type":"PlayerComponent",
-               "speed":200
+               "speed":40
             },
             {
-               "type":"ModelComponent",
-               "model_name":"models/player.txt"
+               "type":"RBPhysicsComponent",
+               "damping":0.4,
+               "data.gravity_scale":1,
+               "data.constrain_angle":true
             },
             {
-            "type":"PhysicsComponent",
-            "damping": "0.99f"
+               "type":"CollisionComponent",
+               "data.size": [48, 48]
             },
             {
-            "type":"SpriteAnimComponent",
-            "texture_name":"nightmare-idle.png",
-            "fps":12,
-            "num_columns":4,
-            "num_rows":1,
-            "start_frame":1,
-            "end_frame":4
+               "type":"SpriteAnimComponent",
+               "texture_name":"Textures/nightmare-idle.png",
+               "fps":12,
+               "num_columns":4,
+               "num_rows":1,
+               "start_frame":1,
+               "end_frame":4
             }
          ]
       }

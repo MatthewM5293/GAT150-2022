@@ -64,6 +64,7 @@ int main()
 	}
 
 	//shut
+	neu::g_physicsSystem.Shutdown();
 	neu::g_inputSystem.Shutdown();
 	neu::g_resourceManager.Shutdown();
 	neu::g_audioSystem.Shutdown();

@@ -39,4 +39,21 @@ namespace neu
 	{
 		m_world->DestroyBody(body);
 	}
+
+	void PhysicsSystem::SetCollisionBox(b2Body* body, const CollisionData& data, class Actor* actor)
+	{
+		b2PolygonShape shape;
+		Vector2 worldSize = PhysicsSystem::ScreenToWorld(data.size * 0.5f);
+		shape.SetAsBox(worldSize.x, worldSize.y);
+
+		b2FixtureDef fixtureDef;
+		fixtureDef.density = data.density;
+		fixtureDef.friction = data.friction;
+		fixtureDef.restitution = data.restitution;
+		fixtureDef.isSensor = data.is_trigger;
+		fixtureDef.shape = &shape;
+		fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(actor);
+
+		body->CreateFixture(&fixtureDef);
+	}
 }
