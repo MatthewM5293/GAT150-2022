@@ -9,6 +9,7 @@
 
 namespace neu
 {
+	class ContactListener;
 	class PhysicsSystem
 	{
 	public:
@@ -49,5 +50,6 @@ namespace neu
 		static const float pixelsPerUnit;
 
 		std::unique_ptr<b2World> m_world;
+		std::unique_ptr<b2ContactListener> m_contactListener;
 	};
 }

@@ -1,14 +1,20 @@
 #pragma once
 #include "Framework/Component.h"
+#include "Physics/Collision.h"
 
 namespace neu
 {
-	class PlayerComponent : public Component
+	class PlayerComponent : public Component, public ICollision
 	{
 	public:
 		PlayerComponent() = default;
 
+		void Initialize() override;
 		void Update() override;
+
+		// Inherited via ICollision
+		virtual void OnCollisionEnter(Actor* other) override;
+		virtual void OnCollisionExit(Actor* other) override;
 
 		// Inherited via Component
 		virtual bool Write(const rapidjson::Value& value) const override;
@@ -16,5 +22,6 @@ namespace neu
 
 	public:
 		float speed = 0;
+
 	};
 }
