@@ -90,4 +90,9 @@ namespace neu
 
 		return true;
 	}
+
+	void Scene::RemoveAll()
+	{
+		m_actors.clear();
+	}
 }

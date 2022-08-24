@@ -20,6 +20,7 @@ namespace neu
 		REGISTER_CLASS(RBPhysicsComponent);
 		REGISTER_CLASS(PlayerComponent);
 		REGISTER_CLASS(SpriteComponent);
+		REGISTER_CLASS(TextComponent);
 		REGISTER_CLASS(SpriteAnimComponent);
 	}
 }

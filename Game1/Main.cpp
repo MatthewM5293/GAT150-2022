@@ -62,6 +62,7 @@ int main()
 
 		neu::g_renderer.EndFrame();
 	}
+	scene.RemoveAll();
 
 	//shut
 	neu::g_physicsSystem.Shutdown();

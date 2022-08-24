@@ -1,6 +1,6 @@
 {
    "actors":[
-     {
+      {
          "type":"Actor",
          "name":"Background",
          "transform":{
@@ -42,7 +42,10 @@
             },
             {
                "type":"CollisionComponent",
-               "data.size": [800, 24]
+               "data.size":[
+                  800,
+                  24
+               ]
             }
          ]
       },
@@ -74,7 +77,10 @@
             },
             {
                "type":"CollisionComponent",
-               "data.size": [48, 48]
+               "data.size":[
+                  48,
+                  48
+               ]
             },
             {
                "type":"SpriteAnimComponent",
@@ -84,6 +90,58 @@
                "num_rows":1,
                "start_frame":1,
                "end_frame":4
+            },
+            {
+               "type":"AudioComponent",
+               "sound_name":"audio/laser.wav",
+               "loop":true,
+               "pitch":2,
+               "play_on_start":true
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"Text",
+         "transform":{
+            "position":[
+               100,
+               50
+            ],
+            "scale":[
+               1,
+               1
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"TextComponent",
+               "text":"Hello World!",
+               "font_name":"Fonts/dogicapixel.ttf",
+               "font_size":16,
+               "registration":[
+                  0.0,
+                  0.5
+               ],
+               "color":[
+                  0,
+                  255,
+                  255,
+                  255
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"Music",
+         "components":[
+            {
+               "type":"AudioComponent",
+               "sound_name":"audio/Another Day - Space.mp3",
+               "loop":true,
+               "play_on_start":true
             }
          ]
       }
