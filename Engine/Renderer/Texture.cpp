@@ -36,8 +36,6 @@ namespace neu
         SDL_Surface* surface = IMG_Load(filename.c_str());// !! call IMG_Load with c-string of filename 
         if (surface == nullptr)
         {
-            //g_logger.Log("error loading %s", filename.c_str());
-            // g_logger.Log(SDL_GetError());
             LOG(SDL_GetError());
             return false;
         }

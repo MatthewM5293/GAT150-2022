@@ -16,6 +16,8 @@ namespace neu
 	{
 		// create a texture from a surface generated in the font class 
 		m_texture->CreateFromSurface(m_font->CreateSurface(text, color), g_renderer);
+
+		bool pause = false;
 	}
 
 	bool TextComponent::Write(const rapidjson::Value& value) const

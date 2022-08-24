@@ -105,7 +105,7 @@
          "name":"Text",
          "transform":{
             "position":[
-               100,
+               40,
                50
             ],
             "scale":[
@@ -118,7 +118,7 @@
             {
                "type":"TextComponent",
                "text":"Hello World!",
-               "font_name":"Fonts/dogicapixel.ttf",
+               "font_name":"Fonts/font.ttf",
                "font_size":16,
                "registration":[
                   0.0,

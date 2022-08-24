@@ -19,7 +19,17 @@ namespace neu
 
 	bool Font::Create(std::string filename, ...)
 	{
-		return false;
+		//Load(filename, 22);
+		va_list args;
+
+		va_start(args, filename);
+
+		int fontSize = va_arg(args, int);
+
+		va_end(args);
+
+		Load(filename, fontSize);
+		return true;
 	}
 
 	void Font::Load(const std::string& filename, int fontSize)
