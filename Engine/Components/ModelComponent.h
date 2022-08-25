@@ -10,6 +10,8 @@ namespace neu
 	public:
 		ModelComponent() = default;
 
+		CLASS_DECLARATION(ModelComponent)
+
 	public:
 		// Inherited via RenderComponent
 		virtual void Update() override;

@@ -13,8 +13,10 @@ namespace neu
 	{
 	public:
 		Actor() = default;
+		Actor(const Actor& other);
 		Actor(const Transform& transform) : m_transform{ transform } {}
-		//Actor(Model model, Transform transform) : GameObject{ transform }, m_model{ model } {}
+
+		CLASS_DECLARATION(Actor)
 
 		// Inherited via GameObject
 		virtual void Initialize() override;
@@ -35,8 +37,8 @@ namespace neu
 		float GetRadius() { return 0; }// m_model.GetRadius()* std::max(m_transform.scale.x, m_transform.scale.y); }
 		
 		const std::string& GetTag() { return tag; }
-		void SetTag(const std::string& name) { this->name = name; }
-		const std::string& GetName() { return tag; }
+		void SetTag(const std::string& tag) { this->tag = tag; }
+		const std::string& GetName() { return name; }
 		void SetName(const std::string& name) { this->name = name; }
 
 		friend class Scene;
@@ -47,11 +49,7 @@ namespace neu
 		std::string name;
 		std::string tag;
 
-
 		bool m_destroy = false;
-		//physics
-		Vector2 m_velocity;
-		float m_damping = 1;
 
 		Scene* m_scene = nullptr; //can make gets and sets
 		Actor* m_parent = nullptr;

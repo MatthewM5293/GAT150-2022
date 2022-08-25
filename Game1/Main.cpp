@@ -35,7 +35,16 @@ int main()
 	scene.Read(document);
 	scene.Initialize();
 
-	float angle = 0;
+	//coins
+	for (int i = 0; i < 10; i++)
+	{
+		auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
+		actor->m_transform.position = { neu::randomf(0, 800), 100.0f};
+		actor->Initialize();
+
+		scene.Add(std::move(actor));
+	}
+
 
 	bool gaming = true;
 	while (gaming)
@@ -52,7 +61,6 @@ int main()
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
 		//update scene
-		angle += 360.0f * neu::g_time.deltaTime; //rotation
 		scene.Update();
 
 		//render
@@ -65,9 +73,9 @@ int main()
 	scene.RemoveAll();
 
 	//shut
-	neu::g_physicsSystem.Shutdown();
-	neu::g_inputSystem.Shutdown();
 	neu::g_resourceManager.Shutdown();
+	neu::g_physicsSystem.Shutdown();
 	neu::g_audioSystem.Shutdown();
+	neu::g_inputSystem.Shutdown();
 	neu::g_renderer.Shutdown();
 }

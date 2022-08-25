@@ -17,10 +17,27 @@ namespace neu
 	template <typename T>
 	class Creator : public CreatorBase
 	{
+	public:
 		std::unique_ptr<GameObject> Create() override
 		{
 			return std::make_unique<T>();
 		}
+	};
+	
+	template <typename T>
+	class PrefabCreator : public CreatorBase
+	{
+	public:
+		//~PrefabCreator() { delete m_instance; }
+		PrefabCreator(std::unique_ptr<T> instance) : m_instance{ std::move(instance) } {} //T* instance
+		std::unique_ptr<GameObject> Create() override
+		{
+			//return std::make_unique<T>();
+			return m_instance->Clone(); //issue
+		}
+	private:
+		std::unique_ptr<T> m_instance; //T* m_instance
+
 	};
 
 	class Factory : public Singleton<Factory>
@@ -28,6 +45,9 @@ namespace neu
 	public:
 		template <typename T>
 		void Register(const std::string& key);
+
+		template <typename T>
+		void RegisterPrefab(const std::string& key, std::unique_ptr<T> instance);
 
 		template <typename T>
 		std::unique_ptr<T> Create(const std::string& key);
@@ -39,6 +59,12 @@ namespace neu
 	inline void Factory::Register(const std::string & key)
 	{
 		m_registry[key] = std::make_unique<Creator<T>>();
+	}
+
+	template<typename T>
+	inline void Factory::RegisterPrefab(const std::string& key, std::unique_ptr<T> instance)
+	{
+		m_registry[key] = std::make_unique<PrefabCreator<T>>(std::move(instance));
 	}
 
 	template<typename T>

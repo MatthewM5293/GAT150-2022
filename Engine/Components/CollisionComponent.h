@@ -15,6 +15,8 @@ namespace neu
 		virtual void Initialize() override;
 		virtual void Update() override;
 
+		CLASS_DECLARATION(CollisionComponent)
+
 		// Inherited via ICollision
 		virtual void OnCollisionEnter(Actor* other) override;
 		virtual void OnCollisionExit(Actor* other) override;
