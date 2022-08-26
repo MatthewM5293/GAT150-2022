@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "TheGame.h"
 #include <iostream>
 
 int main()
@@ -21,30 +22,12 @@ int main()
 	neu::g_renderer.CreateWindow("Gaming", width, height);
 	neu::g_renderer.SetClearColor(neu::Color::black); //old color: neu::Color{ 21, 130, 173, 255 }
 
-	std::shared_ptr<neu::Texture> texture = neu::g_resourceManager.Get<neu::Texture>("textures/player.png", &neu::g_renderer);
-	
-	//audio
-	neu::g_audioSystem.AddAudio("laser", "Audio/laser_shoot.wav");
+	//create game
+	std::unique_ptr<TheGame> game = std::make_unique<TheGame>();
+	game->Initialize();
 
 	//Create scene
-	neu::Scene scene;
-
-	rapidjson::Document document;
-	bool success = neu::json::Load("level.txt", document);
-	assert(success);
-	scene.Read(document);
-	scene.Initialize();
-
-	//coins
-	for (int i = 0; i < 10; i++)
-	{
-		auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
-		actor->m_transform.position = { neu::randomf(0, 800), 100.0f};
-		actor->Initialize();
-
-		scene.Add(std::move(actor));
-	}
-
+	//neu::Scene scene;
 
 	bool gaming = true;
 	while (gaming)
@@ -61,16 +44,19 @@ int main()
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
 		//update scene
-		scene.Update();
+		game->Update();
 
 		//render
 		neu::g_renderer.BeginFrame();
 		
-		scene.Draw(neu::g_renderer);
+		game->Draw(neu::g_renderer);
 
 		neu::g_renderer.EndFrame();
 	}
-	scene.RemoveAll();
+	game->Shutdown();
+	game.reset();
+
+	neu::Factory::Instance().Shutdown();
 
 	//shut
 	neu::g_resourceManager.Shutdown();

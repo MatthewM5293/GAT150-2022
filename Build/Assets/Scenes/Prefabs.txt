@@ -1,0 +1,47 @@
+{
+    "actors":
+    [
+        {
+            "type":"Actor",
+            "name":"Coin",
+            "tag":"Pickup",
+            "prefab":true,
+            "transform":
+            {
+                "position":
+                [
+                    600,
+                    200
+                ],
+            "scale":[
+                1,
+                1
+            ],
+            "rotation":0
+            },
+            "components":
+            [
+                {
+                    "type":"RBPhysicsComponent",
+                    "damping":0.4,
+                    "data.gravity_scale":1,
+                    "data.constrain_angle":false
+                },
+                {
+                    "type":"CollisionComponent",
+                    "data.size": [48, 48],
+                    "data.restitution": 0.7
+                },
+                {
+                    "type":"SpriteAnimComponent",
+                    "texture_name":"Textures/coin.png",
+                    "fps":12,
+                    "num_columns":8,
+                    "num_rows":1,
+                    "start_frame":1,
+                    "end_frame":8
+                    }
+            ]
+        }
+    ]
+}

@@ -183,6 +183,9 @@
     <ClInclude Include="Physics\ContactListener.h">
       <Filter>Source\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Components\TilemapComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -290,6 +293,9 @@
     <ClCompile Include="Physics\ContactListener.cpp">
       <Filter>Source\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Components\TilemapComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Build\Assets\Player.txt">
@@ -317,9 +323,6 @@
       <Filter>Resources</Filter>
     </Text>
     <Text Include="..\Build\Assets\Star.txt">
-      <Filter>Resources</Filter>
-    </Text>
-    <Text Include="..\Build\Assets\level.txt">
       <Filter>Resources</Filter>
     </Text>
   </ItemGroup>

@@ -41,6 +41,14 @@ namespace neu
 		const std::string& GetName() { return name; }
 		void SetName(const std::string& name) { this->name = name; }
 
+		//destroy
+		void SetDestroy() { m_destroy = true; }
+
+		void SetActive(bool active = true) { this->active = active; }
+		bool IsActive() { return active; }
+
+		Scene* GetScene() { return m_scene; }
+
 		friend class Scene;
 		friend class Component;
 		Transform m_transform;
@@ -48,7 +56,7 @@ namespace neu
 	protected:
 		std::string name;
 		std::string tag;
-
+		bool active = true;
 		bool m_destroy = false;
 
 		Scene* m_scene = nullptr; //can make gets and sets
