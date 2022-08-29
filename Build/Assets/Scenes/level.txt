@@ -78,8 +78,8 @@
             {
                "type":"CollisionComponent",
                "data.size":[
-                  48,
-                  48
+                  64,
+                  96
                ]
             },
             {
@@ -93,8 +93,8 @@
             },
             {
                "type":"AudioComponent",
-               "sound_name":"audio/laser.wav",
-               "loop":true,
+               "sound_name":"audio/laser_shoot.wav",
+               "loop":false,
                "pitch":2,
                "play_on_start":true
             }
