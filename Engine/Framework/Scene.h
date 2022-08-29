@@ -35,6 +35,12 @@ namespace neu
 		template<typename T>
 		T* GetActor();
 
+		template<typename T = Actor>
+		T* GetActorFromName(const std::string& name);
+
+		template<typename T = Actor>
+		std::vector<T*> GetActorsFromTag(const std::string& tag);
+
 		Game* GetGame() { return m_game; }
 
 	private:
@@ -55,4 +61,42 @@ namespace neu
 
 		return nullptr;
 	}
+
 }
+	template<typename T>
+	inline T* neu::Scene::GetActorFromName(const std::string& name)
+	{
+		//  !! for loop (range based) through m_actors 
+		for (auto actors : m_actors)
+		{
+			{
+				if (actors.get()->GetName()) 
+					{
+						return dynamic_cast<T*>(actors.get()); //  !! get() actor pointer); 
+					}
+			}
+		}
+		return nullptr;
+	}
+
+	template<typename T>
+	inline std::vector<T*> neu::Scene::GetActorsFromTag(const std::string& tag)
+	{
+		std::vector<T*> result;
+
+		//  !! for loop (range based) through m_actors 
+		for (auto actors : m_actors)
+		{
+			{
+				if (actors.get()->GetName()) //  !! compare name to actor GetName()) 
+					{
+						T* tagActor = dynamic_cast<T*>(actors.get()); //  !! get() actor pointer); 
+						if (tagActor) //  !! push back tagActor to result vector 
+						{
+							result.push_back(tagActor);
+						}
+					}
+			}
+		}
+		return result;
+	}

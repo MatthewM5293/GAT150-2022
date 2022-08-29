@@ -35,9 +35,11 @@ namespace neu
 
 		bool Get(const rapidjson::Value& value, const std::string& name, int& data)
 		{
-			// check if 'name' member exists and is of type 
+			// check if 'name' member exists 
 			if (!value.HasMember(name.c_str())) return false;
-			if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsInt() == false)
+
+			// check if data is the expected type 
+			if (!value[name.c_str()].IsInt())
 			{
 				LOG("error reading json data %s", name.c_str());
 				return false;
@@ -53,6 +55,7 @@ namespace neu
 		{
 			// check if 'name' member exists and is of type 
 			if (!value.HasMember(name.c_str())) return false;
+
 			if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsNumber() == false)
 			{
 				LOG("error reading json data %s", name.c_str());

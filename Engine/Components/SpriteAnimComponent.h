@@ -29,7 +29,8 @@ namespace neu
 		int frame = 0;
 		float frameTimer = 0;
 
-		Rect source;
+		//Rect source;
+		Rect& GetSource() override;
 		std::shared_ptr<Texture> m_texture;
 
 

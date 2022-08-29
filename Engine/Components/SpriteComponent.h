@@ -20,7 +20,7 @@ namespace neu
 		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
-		Rect source;
+		//Rect source;
 		std::shared_ptr<Texture> m_texture;
 
 
