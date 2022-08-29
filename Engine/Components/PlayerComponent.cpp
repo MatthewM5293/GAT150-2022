@@ -95,6 +95,16 @@ namespace neu
 
 	void PlayerComponent::OnCollisionEnter(Actor* other)
 	{
+		if (other->GetName() == "Coin")
+		{
+			Event event;
+			event.name = "EVENT_ADD_POINTS";
+			event.data = 100;
+
+			g_eventManager.Notify(event);
+			other->SetDestroy();
+		}
+
 		std::cout << "Player enter\n";
 	}
 	void PlayerComponent::OnCollisionExit(Actor* other)

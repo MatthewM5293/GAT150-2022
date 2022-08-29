@@ -14,6 +14,7 @@
 #include "Framework/Game.h"
 #include "Framework/Factory.h"
 #include "Framework/Singleton.h"
+#include "Framework/EventManager.h"
 
 #include "Components/PlayerComponent.h"
 #include "Components/AudioComponent.h"
@@ -38,6 +39,9 @@
 #include "Renderer/Model.h"
 
 #include <memory>
+#include <vector>
+#include <list>
+#include <variant>
 
 
 namespace neu 
@@ -48,6 +52,7 @@ namespace neu
 	extern AudioSystem g_audioSystem;
 	extern ResourceManager g_resourceManager;
 	extern PhysicsSystem g_physicsSystem;
+	extern EventManager g_eventManager;
 
 	class Engine : public Singleton<Engine>
 	{

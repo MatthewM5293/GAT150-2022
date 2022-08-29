@@ -38,11 +38,13 @@ namespace neu
 		
 		const std::string& GetTag() { return tag; }
 		void SetTag(const std::string& tag) { this->tag = tag; }
+
 		const std::string& GetName() { return name; }
 		void SetName(const std::string& name) { this->name = name; }
 
 		//destroy
 		void SetDestroy() { m_destroy = true; }
+		bool IsDestroy() { return m_destroy; }
 
 		void SetActive(bool active = true) { this->active = active; }
 		bool IsActive() { return active; }

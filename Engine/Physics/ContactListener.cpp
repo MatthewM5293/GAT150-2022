@@ -15,11 +15,11 @@ namespace neu
 			Actor* actorA = (Actor*)(fixtureA->GetUserData().pointer);
 			Actor* actorB = (Actor*)(fixtureB->GetUserData().pointer);
 
-			if (actorA->GetComponent<CollisionComponent>())
+			if (!actorA->IsDestroy() && actorA->GetComponent<CollisionComponent>())
 			{
 				actorA->GetComponent<CollisionComponent>()->OnCollisionEnter(actorB);
 			}
-			if (actorB->GetComponent<CollisionComponent>())
+			if (!actorB->IsDestroy() && actorB->GetComponent<CollisionComponent>())
 			{
 				actorB->GetComponent<CollisionComponent>()->OnCollisionEnter(actorA);
 			}
@@ -36,11 +36,11 @@ namespace neu
 			Actor* actorA = (Actor*)(fixtureA->GetUserData().pointer);
 			Actor* actorB = (Actor*)(fixtureB->GetUserData().pointer);
 
-			if (actorA->GetComponent<CollisionComponent>())
+			if (!actorA->IsDestroy() && actorA->GetComponent<CollisionComponent>())
 			{
 				actorA->GetComponent<CollisionComponent>()->OnCollisionExit(actorB);
 			}
-			if (actorB->GetComponent<CollisionComponent>())
+			if (!actorB->IsDestroy() && actorB->GetComponent<CollisionComponent>())
 			{
 				actorB->GetComponent<CollisionComponent>()->OnCollisionExit(actorA);
 			}

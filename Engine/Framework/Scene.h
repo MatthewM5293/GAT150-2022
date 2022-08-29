@@ -67,10 +67,10 @@ namespace neu
 	inline T* neu::Scene::GetActorFromName(const std::string& name)
 	{
 		//  !! for loop (range based) through m_actors 
-		for (auto actors : m_actors)
+		for (auto& actors : m_actors)
 		{
 			{
-				if (actors.get()->GetName()) 
+				if (name == actors->GetName())
 					{
 						return dynamic_cast<T*>(actors.get()); //  !! get() actor pointer); 
 					}
@@ -85,7 +85,7 @@ namespace neu
 		std::vector<T*> result;
 
 		//  !! for loop (range based) through m_actors 
-		for (auto actors : m_actors)
+		for (auto& actors : m_actors)
 		{
 			{
 				if (actors.get()->GetName()) //  !! compare name to actor GetName()) 

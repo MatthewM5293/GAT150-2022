@@ -1,5 +1,6 @@
 #include "TheGame.h"
 #include "Engine.h"
+#include "Framework/Event.h"
 
 void TheGame::Initialize()
 {
@@ -22,15 +23,7 @@ void TheGame::Initialize()
 	}
 	m_scene->Initialize();
 
-	//coins
-	for (int i = 0; i < 10; i++)
-	{
-		auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
-		actor->m_transform.position = { neu::randomf(0, 800), 100.0f };
-		actor->Initialize();
-
-		m_scene->Add(std::move(actor));
-	}
+	neu::g_eventManager.Subscribe("EVENT_ADD_POINTS", std::bind(&TheGame::OnAddPoints, this, std::placeholders::_1));
 }
 
 void TheGame::Shutdown()
@@ -40,6 +33,46 @@ void TheGame::Shutdown()
 
 void TheGame::Update()
 {
+	switch (m_gameState)
+	{
+	case TheGame::gameState::titleScreen:
+		if (neu::g_inputSystem.GetKeyState(neu::key_space) == neu::InputSystem::Pressed)
+		{
+			m_scene->GetActorFromName("Title")->SetActive(false);
+
+			m_gameState = gameState::startLevel;
+		}
+		break;
+	case TheGame::gameState::startLevel:
+		//coins
+		for (int i = 0; i < 10; i++)
+		{
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
+			actor->m_transform.position = { neu::randomf(0, 800), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+		}
+		m_lives = 3;
+		m_gameState = gameState::game;
+
+		break;
+	case TheGame::gameState::game:
+		break;
+	case TheGame::gameState::playerDead:
+		m_stateTimer -= neu::g_time.deltaTime;
+		if (m_stateTimer <= 0)
+		{
+			m_gameState = gameState::startLevel;
+			m_gameState = (m_lives > 0) ? gameState::startLevel : gameState::gameOver;
+		}
+		break;
+	case TheGame::gameState::gameOver:
+		break;
+	default:
+		break;
+	}
+
 	m_scene->Update();
 
 }
@@ -47,4 +80,19 @@ void TheGame::Update()
 void TheGame::Draw(neu::Renderer& renderer)
 {
 	m_scene->Draw(renderer);
+}
+
+void TheGame::OnAddPoints(const neu::Event& event)
+{
+	AddPoints(std::get<int>(event.data));
+
+	std::cout << event.name << std::endl;
+	std::cout << GetScore() << std::endl;
+}
+
+void TheGame::OnPlayerDead(const neu::Event& event)
+{
+	m_gameState = gameState::playerDead;
+	m_lives--; //lives
+	m_stateTimer = 3;
 }

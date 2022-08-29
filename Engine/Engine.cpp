@@ -8,6 +8,7 @@ namespace neu
 	AudioSystem g_audioSystem;
 	ResourceManager g_resourceManager;
 	PhysicsSystem g_physicsSystem;
+	EventManager g_eventManager;
 	
 
 	void Engine::Register()

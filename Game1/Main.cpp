@@ -13,6 +13,7 @@ int main()
 	neu::g_audioSystem.Initialize();
 	neu::g_physicsSystem.Initialize();
 	neu::g_resourceManager.Initialize();
+	neu::g_eventManager.Initialize();
 
 	neu::Engine::Instance().Register();
 
@@ -26,9 +27,6 @@ int main()
 	std::unique_ptr<TheGame> game = std::make_unique<TheGame>();
 	game->Initialize();
 
-	//Create scene
-	//neu::Scene scene;
-
 	bool gaming = true;
 	while (gaming)
 	{
@@ -40,6 +38,7 @@ int main()
 
 		//physics
 		neu::g_physicsSystem.Update();
+		neu::g_eventManager.Update();
 
 		if (neu::g_inputSystem.GetKeyDown(neu::key_escape)) gaming = false;
 
@@ -59,6 +58,7 @@ int main()
 	neu::Factory::Instance().Shutdown();
 
 	//shut
+	neu::g_eventManager.Shutdown();
 	neu::g_resourceManager.Shutdown();
 	neu::g_physicsSystem.Shutdown();
 	neu::g_audioSystem.Shutdown();
