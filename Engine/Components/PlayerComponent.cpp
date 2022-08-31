@@ -6,12 +6,8 @@ namespace neu
 {
 	void PlayerComponent::Initialize()
 	{
-		auto component =  m_owner->GetComponent<CollisionComponent>();
-		if (component)
-		{
-			component->SetCollisionEnter(std::bind(&PlayerComponent::OnCollisionEnter, this, std::placeholders::_1));
-			component->SetCollisionExit(std::bind(&PlayerComponent::OnCollisionExit, this, std::placeholders::_1));
-		}
+		CharacterComponent::Initialize();
+		g_eventManager.Subscribe("EVENT_HEALTH", std::bind(&CharacterComponent::OnNotify, this, std::placeholders::_1), m_owner);
 	}
 
 	void PlayerComponent::Update()
@@ -36,6 +32,15 @@ namespace neu
 			direction = Vector2::right;
 		}
 
+		//velocity
+		Vector2 velocity;
+		auto component = m_owner->GetComponent<PhysicsComponent>();
+		if (component)
+		{
+			component->ApplyForce(direction * speed);
+			velocity = component->velocity;
+		}
+
 		auto up1 = neu::g_inputSystem.GetKeyState(neu::key_up) == neu::InputSystem::KeyState::Held;
 		auto up2 = neu::g_inputSystem.GetKeyState(neu::key_w) == neu::InputSystem::KeyState::Held;
 		if (up1 || up2)
@@ -47,12 +52,12 @@ namespace neu
 			}
 
 		}
-
-		auto component = m_owner->GetComponent<PhysicsComponent>();
-		if (component)
+		auto renderComponent = m_owner->GetComponent<RenderComponent>();
+		if (renderComponent)
 		{
-			component->ApplyForce(direction * speed);
+			if (velocity.x != 0) renderComponent->SetFlipHorizontal(velocity.x < 0);
 		}
+
 
 		m_owner->m_transform.position += direction * 300 * g_time.deltaTime;
 
@@ -89,8 +94,31 @@ namespace neu
 
 	bool PlayerComponent::Read(const rapidjson::Value& value)
 	{
-		READ_DATA(value, speed);
+		CharacterComponent::Read(value);
+		READ_DATA(value, jump);
 		return true;
+	}
+
+	void PlayerComponent::OnNotify(const Event& event)
+	{
+		//damage
+		if (event.name == "EVENT_DAMAGE")
+		{
+			health -= std::get<float>(event.data);
+			std::cout << health << std::endl;
+			if (health <= 0)
+			{
+				//player dead
+			}
+
+		}
+
+		//heal
+		if (event.name == "EVENT_HEALTH")
+		{
+			health += std::get<float>(event.data);
+		}
+
 	}
 
 	void PlayerComponent::OnCollisionEnter(Actor* other)
@@ -105,10 +133,20 @@ namespace neu
 			other->SetDestroy();
 		}
 
-		std::cout << "Player enter\n";
+		if (other->GetTag() == "Enemy")
+		{
+			Event event;
+			event.name = "EVENT_DAMAGE";
+			event.data = damage;
+			event.receiver = other;
+
+			g_eventManager.Notify(event);
+		}
+
+		
 	}
 	void PlayerComponent::OnCollisionExit(Actor* other)
 	{
-		std::cout << "Player exit\n";
+		
 	}
 }

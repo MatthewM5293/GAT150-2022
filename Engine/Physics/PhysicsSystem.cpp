@@ -59,4 +59,32 @@ namespace neu
 
 		body->CreateFixture(&fixtureDef);
 	}
+
+	void PhysicsSystem::SetCollisionBoxStatic(b2Body* body, const CollisionData& data, Actor* actor)
+	{
+		Vector2 worldSize = PhysicsSystem::ScreenToWorld(data.size * 0.5f);
+
+		b2Vec2 vs[4] =
+		{
+			{ -worldSize.x, -worldSize.y },
+			{  worldSize.x, -worldSize.y },
+			{  worldSize.x,  worldSize.y },
+			{ -worldSize.x,  worldSize.y },
+		};
+
+		b2ChainShape shape;
+		shape.CreateLoop(vs, 4);
+
+		b2FixtureDef fixtureDef;
+		fixtureDef.density = data.density;
+		fixtureDef.friction = data.friction;
+		fixtureDef.restitution = data.restitution;
+		fixtureDef.isSensor = data.is_trigger;
+		fixtureDef.shape = &shape;
+		fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(actor);
+
+		body->CreateFixture(&fixtureDef);
+	}
+
+
 }

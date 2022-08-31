@@ -27,11 +27,7 @@
 					"data.is_dynamic":false
 				},
 				{
-					"type":"CollisionComponent",
-					"data.size":[
-						64,
-						64
-					]
+					"type":"CollisionComponent"
 				}
 			]
 		},

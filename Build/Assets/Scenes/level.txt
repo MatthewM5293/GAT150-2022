@@ -23,34 +23,6 @@
       },
       {
          "type":"Actor",
-         "name":"Floor",
-         "transform":{
-            "position":[
-               400,
-               540
-            ],
-            "scale":[
-               1,
-               1
-            ],
-            "rotation":0
-         },
-         "components":[
-            {
-               "type":"RBPhysicsComponent",
-               "data.is_dynamic":false
-            },
-            {
-               "type":"CollisionComponent",
-               "data.size":[
-                  800,
-                  24
-               ]
-            }
-         ]
-      },
-      {
-         "type":"Actor",
          "name":"Player",
          "tag":"Player",
          "transform":{
@@ -79,12 +51,12 @@
                "type":"CollisionComponent",
                "data.size":[
                   64,
-                  96
+                  64
                ]
             },
             {
                "type":"SpriteAnimComponent",
-               "texture_name":"Textures/nightmare-idle.png",
+               "texture_name":"Textures/Hero.png",
                "fps":12,
                "num_columns":4,
                "num_rows":1,

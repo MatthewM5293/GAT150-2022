@@ -1,26 +1,22 @@
 {
-    "actors":
-    [
+    "actors":[
         {
             "type":"Actor",
             "name":"Coin",
             "tag":"Pickup",
             "prefab":true,
-            "transform":
-            {
-                "position":
-                [
+            "transform":{
+                "position":[
                     600,
                     200
                 ],
-            "scale":[
-                1,
-                1
-            ],
-            "rotation":0
+                "scale":[
+                    1,
+                    1
+                ],
+                "rotation":0
             },
-            "components":
-            [
+            "components":[
                 {
                     "type":"RBPhysicsComponent",
                     "damping":0.4,
@@ -29,7 +25,7 @@
                 },
                 {
                     "type":"CollisionComponent",
-                    "data.restitution": 0.7
+                    "data.restitution":0.7
                 },
                 {
                     "type":"SpriteAnimComponent",
@@ -39,7 +35,53 @@
                     "num_rows":1,
                     "start_frame":1,
                     "end_frame":8
-                    }
+                }
+            ]
+        },
+        {
+            "type":"Actor",
+            "name":"Ghost",
+            "tag":"Enemy",
+            "prefab":true,
+            "transform":{
+                "position":[
+                    600,
+                    200
+                ],
+                "scale":[
+                    1,
+                    1
+                ],
+                "rotation":0
+            },
+            "components":[
+                {
+                    "type":"EnemyComponent",
+                    "speed":20,
+                    "health":30,
+                    "damage":10
+                },
+                {   
+                    "type":"RBPhysicsComponent",
+                    "damping":0.4,
+                    "data.gravity_scale":0,
+                    "data.constrain_angle":true
+                },
+                {
+                    "type":"CollisionComponent",
+                    "data.restitution":0.7,
+                    "data.is_trigger":true,
+                    "scale_offset": [ 0.5, 0.5 ] 
+                },
+                {
+                    "type":"SpriteAnimComponent",
+                    "texture_name":"Textures/ghost.png",
+                    "fps":12,
+                    "num_columns":7,
+                    "num_rows":1,
+                    "start_frame":1,
+                    "end_frame":7
+                }
             ]
         }
     ]

@@ -192,6 +192,9 @@
     <ClInclude Include="Framework\EventManager.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Components\CharacterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">
@@ -304,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="Framework\EventManager.cpp">
       <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CharacterComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

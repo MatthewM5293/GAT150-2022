@@ -1,9 +1,12 @@
 #include "TheGame.h"
+#include "GameComponents/EnemyComponent.h"
 #include "Engine.h"
-#include "Framework/Event.h"
 
 void TheGame::Initialize()
 {
+	REGISTER_CLASS(EnemyComponent);
+
+
 	m_scene = std::make_unique<neu::Scene>();
 
 	rapidjson::Document document;
@@ -24,6 +27,7 @@ void TheGame::Initialize()
 	m_scene->Initialize();
 
 	neu::g_eventManager.Subscribe("EVENT_ADD_POINTS", std::bind(&TheGame::OnAddPoints, this, std::placeholders::_1));
+	neu::g_eventManager.Subscribe("EVENT_PLAYER_DEAD", std::bind(&TheGame::OnAddPoints, this, std::placeholders::_1));
 }
 
 void TheGame::Shutdown()
@@ -53,6 +57,17 @@ void TheGame::Update()
 
 			m_scene->Add(std::move(actor));
 		}
+		//ENEMIES
+		for (int i = 0; i < 3; i++)
+		{
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Ghost");
+			actor->m_transform.position = { neu::randomf(0, 800), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+		}
+
+
 		m_lives = 3;
 		m_gameState = gameState::game;
 
@@ -95,4 +110,16 @@ void TheGame::OnPlayerDead(const neu::Event& event)
 	m_gameState = gameState::playerDead;
 	m_lives--; //lives
 	m_stateTimer = 3;
+}
+
+void TheGame::OnNotify(const neu::Event& event)
+{
+	if (event.name == "EVENT_ADD_POINTS")
+	{
+		AddPoints(std::get<int>(event.data));
+	}
+	if (event.name == "EVENT_PLAYER_DEAD")
+	{
+		m_gameState = gameState::playerDead;
+	}
 }
