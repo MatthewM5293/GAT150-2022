@@ -6,7 +6,6 @@ void TheGame::Initialize()
 {
 	REGISTER_CLASS(EnemyComponent);
 
-
 	m_scene = std::make_unique<neu::Scene>();
 
 	rapidjson::Document document;
@@ -26,8 +25,8 @@ void TheGame::Initialize()
 	}
 	m_scene->Initialize();
 
-	neu::g_eventManager.Subscribe("EVENT_ADD_POINTS", std::bind(&TheGame::OnAddPoints, this, std::placeholders::_1));
-	neu::g_eventManager.Subscribe("EVENT_PLAYER_DEAD", std::bind(&TheGame::OnAddPoints, this, std::placeholders::_1));
+	neu::g_eventManager.Subscribe("EVENT_ADD_POINTS", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
+	neu::g_eventManager.Subscribe("EVENT_PLAYER_DEAD", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
 }
 
 void TheGame::Shutdown()
@@ -66,13 +65,38 @@ void TheGame::Update()
 
 			m_scene->Add(std::move(actor));
 		}
+		{
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Player");
+			actor->m_transform.position = { 400.0f, 250.0f };
+			actor->Initialize();
 
+			m_scene->Add(std::move(actor));
+		}
 
 		m_lives = 3;
 		m_gameState = gameState::game;
 
 		break;
 	case TheGame::gameState::game:
+	{
+		auto actor = m_scene->GetActorFromName("Score");
+		auto component = actor->GetComponent<neu::TextComponent>();
+		if (component)
+		{
+			component->SetText(std::to_string(m_score));
+		}
+	}
+	{
+		auto actor = m_scene->GetActorFromName("Health");
+		auto component = actor->GetComponent<neu::TextComponent>();
+
+		auto player = m_scene->GetActorFromName("Player");
+		auto playerComponent = player->GetComponent<neu::PlayerComponent>();
+		if (playerComponent)
+		{
+			component->SetText(std::to_string((int)playerComponent->health));
+		}
+	}
 		break;
 	case TheGame::gameState::playerDead:
 		m_stateTimer -= neu::g_time.deltaTime;
@@ -121,5 +145,7 @@ void TheGame::OnNotify(const neu::Event& event)
 	if (event.name == "EVENT_PLAYER_DEAD")
 	{
 		m_gameState = gameState::playerDead;
+		m_lives--; //lives
+		m_stateTimer = 3;
 	}
 }

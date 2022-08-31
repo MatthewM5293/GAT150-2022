@@ -12,9 +12,11 @@ namespace neu
 		SDL_Init(SDL_INIT_VIDEO);
 		//Images
 		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-		
 		//font
 		TTF_Init();
+
+		m_view = Matrix3x3::identity;
+		m_viewport = Matrix3x3::identity;
 	}
 	
 	void Renderer::Shutdown()
@@ -113,29 +115,29 @@ namespace neu
 
 	void Renderer::Draw(std::shared_ptr<Texture> texture, const Rect& source, const Transform& transform, const Vector2& registration, bool flipH)
 	{
-		Vector2 size = Vector2{source.w, source.h};
-		size = size * transform.scale;
+		Matrix3x3 mx = m_viewport * m_view * transform.matrix;
 
+		Vector2 size = Vector2{ source.w, source.h };
+		size = size * mx.GetScale();
+		
 		Vector2 origin = size * registration;
-		Vector2 tposition = transform.position - origin;
-
+		Vector2 tposition = mx.GetTranslation() - origin;
+		
 		SDL_Rect dest;
-		// !! make sure to cast to int to prevent compiler warnings 
-		dest.x = (int)(tposition.x);// !! set to position x 
-		dest.y = (int)(tposition.y);// !! set to position y 
-		dest.w = (int)(size.x);// !! set to size x 
-		dest.h = (int)(size.y);// !! set to size y 
-
+		dest.x = (int)(tposition.x);
+		dest.y = (int)(tposition.y);
+		dest.w = (int)(size.x);
+		dest.h = (int)(size.y);
+		
 		SDL_Rect src;
 		src.x = source.x;
 		src.y = source.y;
 		src.w = source.w;
 		src.h = source.h;
-
-
+		
 		SDL_Point center{ (int)origin.x, (int)origin.y };
 		
 		SDL_RendererFlip flip = (flipH) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, &src, &dest, transform.rotation, &center, flip); //SDL_FLIP_NONE //SDL_FLIP_HORIZONTAL //SDL_FLIP_VERTICAL
+		SDL_RenderCopyEx(m_renderer, texture -> m_texture, &src, &dest, math::RadtoDeg(mx.GetRotation()), &center, flip);
 	}
 }

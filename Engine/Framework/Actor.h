@@ -57,6 +57,7 @@ namespace neu
 		std::string tag;
 		bool active = true;
 		bool m_destroy = false;
+		float lifeSpan = 0;
 
 		Scene* m_scene = nullptr; //can make gets and sets
 		Actor* m_parent = nullptr;

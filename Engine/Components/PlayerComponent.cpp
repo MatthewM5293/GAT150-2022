@@ -32,30 +32,42 @@ namespace neu
 			direction = Vector2::right;
 		}
 
+		auto up1 = neu::g_inputSystem.GetKeyState(neu::key_up) == neu::InputSystem::KeyState::Held;
+		auto up2 = neu::g_inputSystem.GetKeyState(neu::key_w) == neu::InputSystem::KeyState::Held;
+		if (m_groundCount > 0 && up1 || m_groundCount > 0 && up2)
+		{
+			auto component = m_owner->GetComponent<PhysicsComponent>();
+			if (component)
+			{
+				component->ApplyForce(Vector2::up * jump);
+			}
+
+		}
+		
 		//velocity
 		Vector2 velocity;
 		auto component = m_owner->GetComponent<PhysicsComponent>();
 		if (component)
 		{
-			component->ApplyForce(direction * speed);
+			//if in the air (m_groundCount==0) then reduce force 
+			float multiplier = (m_groundCount > 0) ? 1 : 0.2f;
+
+			component->ApplyForce(direction * speed * multiplier);
 			velocity = component->velocity;
 		}
-
-		auto up1 = neu::g_inputSystem.GetKeyState(neu::key_up) == neu::InputSystem::KeyState::Held;
-		auto up2 = neu::g_inputSystem.GetKeyState(neu::key_w) == neu::InputSystem::KeyState::Held;
-		if (up1 || up2)
+		
+		auto animComponent = m_owner->GetComponent<SpriteAnimComponent>();
+		if (animComponent)
 		{
-			auto component = m_owner->GetComponent<PhysicsComponent>();
-			if (component)
+			if (velocity.x != 0) animComponent->SetFlipHorizontal(velocity.x < 0);
+			if (std::fabs(velocity.x) > 0)
 			{
-				component->ApplyForce(Vector2::up * speed);
+				animComponent->SetSequence("run");
 			}
-
-		}
-		auto renderComponent = m_owner->GetComponent<RenderComponent>();
-		if (renderComponent)
-		{
-			if (velocity.x != 0) renderComponent->SetFlipHorizontal(velocity.x < 0);
+			else
+			{
+				animComponent->SetSequence("idle");
+			}
 		}
 
 
@@ -78,13 +90,13 @@ namespace neu
 			}
 		}
 
-		//rotating
-		bool rReset = neu::g_inputSystem.GetButtonState(neu::button_middle) == neu::InputSystem::KeyState::Held;
-		if (rReset)
+		//set camera
+		auto camera = m_owner->GetScene()->GetActorFromName("Camera");
+		if (camera) 
 		{
-			m_owner->m_transform.rotation = 0;
+			//camera->m_transform.position = m_owner->m_transform.position;
+			camera->m_transform.position = math::Lerp(camera->m_transform.position, m_owner->m_transform.position, 2 * g_time.deltaTime);
 		}
-
 		
 	}
 	bool PlayerComponent::Write(const rapidjson::Value& value) const
@@ -105,20 +117,18 @@ namespace neu
 		if (event.name == "EVENT_DAMAGE")
 		{
 			health -= std::get<float>(event.data);
-			std::cout << health << std::endl;
 			if (health <= 0)
 			{
-				//player dead
+				m_owner->SetDestroy();
+
+				Event event;
+				event.name = "EVENT_PLAYER_DEAD";
+
+				g_eventManager.Notify(event);
+
 			}
 
 		}
-
-		//heal
-		if (event.name == "EVENT_HEALTH")
-		{
-			health += std::get<float>(event.data);
-		}
-
 	}
 
 	void PlayerComponent::OnCollisionEnter(Actor* other)
@@ -130,6 +140,7 @@ namespace neu
 			event.data = 100;
 
 			g_eventManager.Notify(event);
+
 			other->SetDestroy();
 		}
 
@@ -143,10 +154,18 @@ namespace neu
 			g_eventManager.Notify(event);
 		}
 
+		if (other->GetTag() == "Ground") 
+		{ 
+			m_groundCount++; 
+		}
+
 		
 	}
 	void PlayerComponent::OnCollisionExit(Actor* other)
 	{
-		
+		if (other->GetTag() == "Ground") 
+		{
+			m_groundCount--; 
+		}
 	}
 }

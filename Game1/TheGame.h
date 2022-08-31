@@ -6,7 +6,7 @@
 class TheGame : public neu::Game, public neu::INotify
 {
 public:
-	enum gameState
+	enum class gameState
 	{
 		titleScreen,
 		startLevel,
@@ -26,6 +26,7 @@ public:
 
 	void OnAddPoints(const neu::Event& event);
 	void OnPlayerDead(const neu::Event& event);
+
 private:
 	gameState m_gameState = gameState::titleScreen;
 	float m_stateTimer = 0;

@@ -1,7 +1,5 @@
 #include "Actor.h"
-#include "Factory.h"
-#include "Components/RenderComponent.h"
-#include "Core/Logger.h"
+#include "Engine.h"
 
 namespace neu 
 {
@@ -9,6 +7,7 @@ namespace neu
 	{
 		name = other.name;
 		tag = other.tag;
+		lifeSpan = other.lifeSpan;
 		m_transform = other.m_transform;
 
 		m_scene = other.m_scene;
@@ -35,6 +34,15 @@ namespace neu
 	void Actor::Update()
 	{
 		if (!active) return;
+
+		if (lifeSpan != 0) 
+		{
+			lifeSpan -= g_time.deltaTime;
+			if (lifeSpan <= 0) 
+			{ 
+				SetDestroy(); 
+			}
+		}
 
 		for (auto& component : m_components)
 		{
@@ -90,6 +98,7 @@ namespace neu
 		READ_DATA(value, tag);
 		READ_DATA(value, name);
 		READ_DATA(value, active);
+		READ_DATA(value, lifeSpan);
 
 		if (value.HasMember("transform")) m_transform.Read(value["transform"]);
 		//m_transform.Read(value["transform"]);

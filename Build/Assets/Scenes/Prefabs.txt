@@ -2,8 +2,65 @@
     "actors":[
         {
             "type":"Actor",
+            "name":"Player",
+            "tag":"Player",
+            "prefab": true,
+            "transform":{
+                "position":[
+                    400,
+                    300
+                ],
+                "scale":[
+                    1,
+                    1
+                ],
+                "rotation":0
+            },
+            "components":[
+                {
+                    "type":"PlayerComponent",
+                    "speed":30
+                },
+                {
+                    "type":"RBPhysicsComponent",
+                    "damping":0.2,
+                    "data.gravity_scale":1,
+                    "data.constrain_angle":true
+                },
+                {
+                    "type":"CollisionComponent"
+                },
+                {
+                    "type":"SpriteAnimComponent",
+                    "default_sequence":"idle",
+                    "sequences":[
+                        {
+                            "sequence.name":"run",
+                            "sequence.fps":12,
+                            "sequence.num_columns":12,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":12,
+                            "texture_name":"Textures/gothic-hero-run.png"
+                        },
+                        {
+                            "sequence.name":"idle",
+                            "sequence.fps":12,
+                            "sequence.num_columns":4,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":4,
+                            "texture_name":"Textures/gothic-hero-idle.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type":"Actor",
             "name":"Coin",
             "tag":"Pickup",
+            "lifeSpan":4,
             "prefab":true,
             "transform":{
                 "position":[
@@ -29,12 +86,18 @@
                 },
                 {
                     "type":"SpriteAnimComponent",
-                    "texture_name":"Textures/coin.png",
-                    "fps":12,
-                    "num_columns":8,
-                    "num_rows":1,
-                    "start_frame":1,
-                    "end_frame":8
+                    "default_sequence":"idle",
+                    "sequences":[
+                        {
+                            "sequence.name":"idle",
+                            "sequence.fps":12,
+                            "sequence.num_columns":8,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":8,
+                            "texture_name":"Textures/coin.png"
+                        }
+                    ]
                 }
             ]
         },
@@ -61,7 +124,7 @@
                     "health":30,
                     "damage":10
                 },
-                {   
+                {
                     "type":"RBPhysicsComponent",
                     "damping":0.4,
                     "data.gravity_scale":0,
@@ -71,16 +134,25 @@
                     "type":"CollisionComponent",
                     "data.restitution":0.7,
                     "data.is_trigger":true,
-                    "scale_offset": [ 0.5, 0.5 ] 
+                    "scale_offset":[
+                        0.5,
+                        0.5
+                    ]
                 },
-                {
+                                {
                     "type":"SpriteAnimComponent",
-                    "texture_name":"Textures/ghost.png",
-                    "fps":12,
-                    "num_columns":7,
-                    "num_rows":1,
-                    "start_frame":1,
-                    "end_frame":7
+                    "default_sequence":"idle",
+                    "sequences":[
+                        {
+                            "sequence.name":"idle",
+                            "sequence.fps":12,
+                            "sequence.num_columns":7,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":7,
+                            "texture_name":"Textures/ghost.png"
+                        }
+                    ]
                 }
             ]
         }
