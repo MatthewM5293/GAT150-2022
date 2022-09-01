@@ -20,10 +20,12 @@ namespace neu
 
 		int GetScore() { return m_score; }
 		void AddPoints(int points) { m_score += points; }
+		void AddHP(int hp) { m_hp += hp; }
 
 	protected:
 		std::unique_ptr<Scene> m_scene;
 		int m_score = 0;
+		int m_hp = 0;
 
 	};
 }

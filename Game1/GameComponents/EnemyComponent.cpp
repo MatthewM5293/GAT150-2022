@@ -46,6 +46,10 @@ void EnemyComponent::OnNotify(const neu::Event& event)
         {
             m_owner->SetDestroy();
         }
+        if (event.name == "EVENT_HEAL")
+        {
+            health += std::get<float>(event.data);
+        }
     }
 
 }

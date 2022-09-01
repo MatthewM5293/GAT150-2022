@@ -68,6 +68,10 @@ namespace neu
 			{
 				animComponent->SetSequence("idle");
 			}
+			if (std::fabs(velocity.y) != 0)
+			{
+				animComponent->SetSequence("jump");
+			}
 		}
 
 
@@ -129,6 +133,10 @@ namespace neu
 			}
 
 		}
+		if (event.name == "EVENT_HEAL")
+		{
+			health += std::get<float>(event.data);
+		}
 	}
 
 	void PlayerComponent::OnCollisionEnter(Actor* other)
@@ -142,6 +150,14 @@ namespace neu
 			g_eventManager.Notify(event);
 
 			other->SetDestroy();
+		}
+		if (other->GetName() == "Coin")
+		{
+			Event event;
+			event.name = "EVENT_HEAL";
+			event.data = 10;
+
+			g_eventManager.Notify(event);
 		}
 
 		if (other->GetTag() == "Enemy")

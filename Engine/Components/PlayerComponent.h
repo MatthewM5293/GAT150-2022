@@ -23,7 +23,7 @@ namespace neu
 		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
-		float jump = 300;
+		float jump = 500;
 		int m_groundCount = 0;
 	};
 }

@@ -5,11 +5,11 @@
             "name":"Background",
             "transform":{
                 "position":[
-                    400,
-                    300
+                    800,
+                    600
                 ],
                 "scale":[
-                    1,
+                    2.5,
                     1
                 ],
                 "rotation":0
@@ -17,7 +17,7 @@
             "components":[
                 {
                     "type":"SpriteComponent",
-                    "texture_name":"Textures/background.png"
+                    "texture_name":"Textures/background2.gif"
                 }
             ]
         },
@@ -52,7 +52,7 @@
             "transform":{
                 "position":[
                     300,
-                    300
+                    400
                 ],
                 "scale":[
                     1,
@@ -81,12 +81,46 @@
         },
         {
             "type":"Actor",
+            "name":"Title2",
+            "active":true,
+            "transform":{
+                "position":[
+                    300,
+                    400
+                ],
+                "scale":[
+                    1,
+                    1
+                ],
+                "rotation":0
+            },
+            "components":[
+                {
+                    "type":"TextComponent",
+                    "text":"Press Space to try again!",
+                    "font_name":"Fonts/font.ttf",
+                    "font_size":16,
+                    "registration":[
+                        0.0,
+                        0.5
+                    ],
+                    "color":[
+                        0,
+                        255,
+                        255,
+                        255
+                    ]
+                }
+            ]
+        },
+        {
+            "type":"Actor",
             "name":"Health",
             "active":true,
             "transform":{
                 "position":[
                     40,
-                    65
+                    75
                 ],
                 "scale":[
                     1,
@@ -131,7 +165,7 @@
             "components":[
                 {
                     "type":"TextComponent",
-                    "text":"Hello World!",
+                    "text":"0000",
                     "font_name":"Fonts/font.ttf",
                     "font_size":16,
                     "registration":[
@@ -153,7 +187,7 @@
             "components":[
                 {
                     "type":"AudioComponent",
-                    "sound_name":"audio/Another Day - Space.mp3",
+                    "sound_name":"audio/Another Da - Space.mp3",
                     "loop":true,
                     "play_on_start":true
                 }

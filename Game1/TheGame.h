@@ -25,11 +25,14 @@ public:
 	virtual void OnNotify(const neu::Event& event) override;
 
 	void OnAddPoints(const neu::Event& event);
+	void OnAddHP(const neu::Event& event);
 	void OnPlayerDead(const neu::Event& event);
 
 private:
 	gameState m_gameState = gameState::titleScreen;
 	float m_stateTimer = 0;
+	float m_enemyTimer = 0;
+	float m_coinTimer = 0;
 	int m_lives = 3;
 
 };

@@ -27,6 +27,7 @@ void TheGame::Initialize()
 
 	neu::g_eventManager.Subscribe("EVENT_ADD_POINTS", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
 	neu::g_eventManager.Subscribe("EVENT_PLAYER_DEAD", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
+	neu::g_eventManager.Subscribe("EVENT_PLAYER_HEAL", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
 }
 
 void TheGame::Shutdown()
@@ -47,6 +48,8 @@ void TheGame::Update()
 		}
 		break;
 	case TheGame::gameState::startLevel:
+		m_scene->GetActorFromName("Title2")->SetActive(false);
+
 		//coins
 		for (int i = 0; i < 10; i++)
 		{
@@ -79,6 +82,8 @@ void TheGame::Update()
 		break;
 	case TheGame::gameState::game:
 	{
+		m_scene->GetActorFromName("Title2")->SetActive(false);
+
 		auto actor = m_scene->GetActorFromName("Score");
 		auto component = actor->GetComponent<neu::TextComponent>();
 		if (component)
@@ -107,10 +112,45 @@ void TheGame::Update()
 		}
 		break;
 	case TheGame::gameState::gameOver:
+		m_scene->GetActorFromName("Title2")->SetActive(true);
+
 		break;
 	default:
 		break;
 	}
+
+	//spawn timers, spawns coins/enemies every few seconds (based on miliseconds) 1 second = 1000 miliseconds
+	m_coinTimer -= neu::g_time.deltaTime;
+
+	if (m_coinTimer <= 0)
+	{
+		//coins
+		for (int i = 0; i < 10; i++)
+		{
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
+			actor->m_transform.position = { neu::randomf(0, 800), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+		}
+		m_coinTimer = neu::random(20000, 200000);
+	}
+
+	m_enemyTimer -= neu::g_time.deltaTime;
+	if (m_enemyTimer <= 0)
+	{
+		//ENEMIES
+		for (int i = 0; i < 3; i++)
+		{
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Ghost");
+			actor->m_transform.position = { neu::randomf(0, 800), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+		}
+		m_enemyTimer = neu::random(10000, 100000);
+	}
+
 
 	m_scene->Update();
 
@@ -124,9 +164,11 @@ void TheGame::Draw(neu::Renderer& renderer)
 void TheGame::OnAddPoints(const neu::Event& event)
 {
 	AddPoints(std::get<int>(event.data));
+}
 
-	std::cout << event.name << std::endl;
-	std::cout << GetScore() << std::endl;
+void TheGame::OnAddHP(const neu::Event& event)
+{
+	AddHP(10);
 }
 
 void TheGame::OnPlayerDead(const neu::Event& event)
@@ -141,6 +183,7 @@ void TheGame::OnNotify(const neu::Event& event)
 	if (event.name == "EVENT_ADD_POINTS")
 	{
 		AddPoints(std::get<int>(event.data));
+		AddHP(10);
 	}
 	if (event.name == "EVENT_PLAYER_DEAD")
 	{
