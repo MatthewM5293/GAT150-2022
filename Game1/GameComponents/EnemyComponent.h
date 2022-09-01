@@ -6,7 +6,7 @@ class EnemyComponent : public neu::CharacterComponent
 public:
 	CLASS_DECLARATION(EnemyComponent)
 
-		virtual void Initialize() override;
+	virtual void Initialize() override;
 	virtual void Update() override;
 
 	virtual void OnCollisionEnter(neu::Actor* other) override;
@@ -18,4 +18,5 @@ public:
 	virtual bool Read(const rapidjson::Value& value) override;
 
 protected:
+	bool drop;
 };

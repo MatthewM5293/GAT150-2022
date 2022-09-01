@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameComponents\BulletComponent.cpp" />
     <ClCompile Include="GameComponents\EnemyComponent.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TheGame.cpp" />
@@ -145,6 +146,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameComponents\BulletComponent.h" />
     <ClInclude Include="GameComponents\EnemyComponent.h" />
     <ClInclude Include="TheGame.h" />
   </ItemGroup>

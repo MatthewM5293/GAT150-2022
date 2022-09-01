@@ -9,6 +9,7 @@ namespace neu
 	{
 	public:
 		PlayerComponent() = default;
+		~PlayerComponent();
 
 		CLASS_DECLARATION(PlayerComponent)
 
@@ -25,5 +26,7 @@ namespace neu
 	public:
 		float jump = 500;
 		int m_groundCount = 0;
+		bool drop = false;
+		Vector2 dropLocation;
 	};
 }

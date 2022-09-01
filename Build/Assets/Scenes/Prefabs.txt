@@ -19,7 +19,8 @@
             "components":[
                 {
                     "type":"PlayerComponent",
-                    "speed":30
+                    "speed":30,
+                    "jump":1200
                 },
                 {
                     "type":"RBPhysicsComponent",
@@ -51,6 +52,15 @@
                             "sequence.start_frame":1,
                             "sequence.end_frame":1,
                             "texture_name":"Textures/knight hit.png"
+                        },
+                        {
+                            "sequence.name":"hurt",
+                            "sequence.fps":12,
+                            "sequence.num_columns":3,
+                            "sequence.num_rows":2,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":6,
+                            "texture_name":"Textures/knight hurt.png"
                         },
                         {
                             "sequence.name":"idle",
@@ -112,6 +122,69 @@
         },
         {
             "type":"Actor",
+            "name":"Ogre",
+            "tag":"Enemy",
+            "prefab":true,
+            "transform":{
+                "position":[
+                    600,
+                    200
+                ],
+                "scale":[
+                    3,
+                    3
+                ],
+                "rotation":0
+            },
+            "components":[
+                {
+                    "type":"EnemyComponent",
+                    "speed":10,
+                    "health":100,
+                    "damage":10
+                },
+                {
+                    "type":"RBPhysicsComponent",
+                    "damping":0.2,
+                    "data.gravity_scale":0.7,
+                    "data.constrain_angle":true
+                },
+                {
+                    "type":"CollisionComponent",
+                    "data.restitution":0.7,
+                    "scale_offset":[
+                        0.5,
+                        0.8
+                    ]
+                },
+                {
+                    "type":"SpriteAnimComponent",
+                    "default_sequence":"run",
+                    "sequences":[
+                        {
+                            "sequence.name":"run",
+                            "sequence.fps":12,
+                            "sequence.num_columns":4,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":4,
+                            "texture_name":"Textures/ogre run.png"
+                        },
+                        {
+                            "sequence.name":"idle",
+                            "sequence.fps":12,
+                            "sequence.num_columns":4,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":4,
+                            "texture_name":"Textures/ogre idle.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type":"Actor",
             "name":"Ghost",
             "tag":"Enemy",
             "prefab":true,
@@ -129,13 +202,13 @@
             "components":[
                 {
                     "type":"EnemyComponent",
-                    "speed":20,
+                    "speed":10,
                     "health":30,
                     "damage":5
                 },
                 {
                     "type":"RBPhysicsComponent",
-                    "damping":0.4,
+                    "damping":0.6,
                     "data.gravity_scale":0,
                     "data.constrain_angle":true
                 },
@@ -148,7 +221,7 @@
                         0.5
                     ]
                 },
-                                {
+                {
                     "type":"SpriteAnimComponent",
                     "default_sequence":"idle",
                     "sequences":[
@@ -160,6 +233,112 @@
                             "sequence.start_frame":1,
                             "sequence.end_frame":7,
                             "texture_name":"Textures/ghost.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type":"Actor",
+            "name":"Fireball",
+            "tag":"Fireball",
+            "lifeSpan":10,
+            "prefab":true,
+            "transform":{
+                "position":[
+                    600,
+                    200
+                ],
+                "scale":[
+                    0.05,
+                    0.05
+                ],
+                "rotation":0
+            },
+            "components":[
+                {
+                    "type":"RBPhysicsComponent",
+                    "damping":0.0,
+                    "data.gravity_scale":0.0,
+                    "data.constrain_angle":true
+                },
+                {
+                    "type":"CollisionComponent",
+                    "data.restitution":0.7,
+                    "data.is_trigger":true,
+                    "scale_offset":[
+                        0.5,
+                        0.5
+                    ]
+                },
+                {
+                    "type":"SpriteAnimComponent",
+                    "default_sequence":"idle",
+                    "sequences":[
+                        {
+                            "sequence.name":"idle",
+                            "sequence.fps":12,
+                            "sequence.num_columns":12,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":12,
+                            "texture_name":"Textures/fireball.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type":"Actor",
+            "name":"Bat",
+            "tag":"Enemy",
+            "prefab":true,
+            "transform":{
+                "position":[
+                    600,
+                    200
+                ],
+                "scale":[
+                    2,
+                    2
+                ],
+                "rotation":0
+            },
+            "components":[
+                {
+                    "type":"EnemyComponent",
+                    "speed":5,
+                    "health":50,
+                    "damage":5
+                },
+                {
+                    "type":"RBPhysicsComponent",
+                    "damping":0.6,
+                    "data.gravity_scale":0.5,
+                    "data.constrain_angle":true
+                },
+                {
+                    "type":"CollisionComponent",
+                    "data.restitution":0.7,
+                    "data.is_trigger":true,
+                    "scale_offset":[
+                        0.5,
+                        0.5
+                    ]
+                },
+                {
+                    "type":"SpriteAnimComponent",
+                    "default_sequence":"idle",
+                    "sequences":
+                    [
+                        {
+                            "sequence.name":"idle",
+                            "sequence.fps":12,
+                            "sequence.num_columns":4,
+                            "sequence.num_rows":1,
+                            "sequence.start_frame":1,
+                            "sequence.end_frame":4,
+                            "texture_name":"Textures/bat.png"
                         }
                     ]
                 }

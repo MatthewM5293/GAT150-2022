@@ -97,7 +97,7 @@
             "components":[
                 {
                     "type":"TextComponent",
-                    "text":"Press Space to try again!",
+                    "text":"Press Space to play!",
                     "font_name":"Fonts/font.ttf",
                     "font_size":16,
                     "registration":[
@@ -105,9 +105,9 @@
                         0.5
                     ],
                     "color":[
+                        255,
                         0,
-                        255,
-                        255,
+                        0,
                         255
                     ]
                 }
@@ -139,7 +139,7 @@
                         0.5
                     ],
                     "color":[
-                        0,
+                        255,
                         255,
                         255,
                         255
@@ -173,7 +173,41 @@
                         0.5
                     ],
                     "color":[
-                        0,
+                        255,
+                        255,
+                        255,
+                        255
+                    ]
+                }
+            ]
+        },
+        {
+            "type":"Actor",
+            "name":"Lives",
+            "active":true,
+            "transform":{
+                "position":[
+                    40,
+                    100
+                ],
+                "scale":[
+                    1,
+                    1
+                ],
+                "rotation":0
+            },
+            "components":[
+                {
+                    "type":"TextComponent",
+                    "text":"Lives: ",
+                    "font_name":"Fonts/font.ttf",
+                    "font_size":16,
+                    "registration":[
+                        0.0,
+                        0.5
+                    ],
+                    "color":[
+                        255,
                         255,
                         255,
                         255
@@ -187,8 +221,9 @@
             "components":[
                 {
                     "type":"AudioComponent",
-                    "sound_name":"audio/Another Da - Space.mp3",
+                    "sound_name":"audio/Another Day - Space.mp3",
                     "loop":true,
+                    "volume":0.5,
                     "play_on_start":true
                 }
             ]

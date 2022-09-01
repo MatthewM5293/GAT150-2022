@@ -1,7 +1,9 @@
 #pragma once
+#include "Math/Vector2.h"
 #include <string>
 #include <variant>
 #include <functional>
+
 
 namespace neu
 {
@@ -13,7 +15,7 @@ namespace neu
 	public:
 		std::string name;
 		GameObject* receiver = nullptr;
-		std::variant<int, bool, float, std::string, void*> data;
+		std::variant<int, bool, float, std::string, void*, Vector2> data;
 	};
 
 	class INotify

@@ -27,12 +27,18 @@
     <ClCompile Include="GameComponents\EnemyComponent.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="GameComponents\BulletComponent.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TheGame.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="GameComponents\EnemyComponent.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponents\BulletComponent.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>

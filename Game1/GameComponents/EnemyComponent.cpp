@@ -5,6 +5,7 @@
 void EnemyComponent::Initialize()
 {
     CharacterComponent::Initialize();
+    neu::g_eventManager.Subscribe("EVENT_DROP", std::bind(&CharacterComponent::OnNotify, this, std::placeholders::_1), m_owner);
 }
 
 void EnemyComponent::Update()
@@ -17,6 +18,15 @@ void EnemyComponent::Update()
 
         auto component = m_owner->GetComponent<neu::PhysicsComponent>();
         if (component) component->ApplyForce(force);
+
+        {
+            auto component = m_owner->GetComponent<neu::RenderComponent>();
+            if (component)
+            {
+                component->SetFlipHorizontal(direction.x < 0);
+            }
+
+        }
     }
 }
 
@@ -31,6 +41,19 @@ void EnemyComponent::OnCollisionEnter(neu::Actor* other)
 
         neu::g_eventManager.Notify(event);
     }
+    if (other->GetName() == "Fireball")
+    {
+        neu::Event event;
+        event.name = "EVENT_DAMAGE";
+        event.data = 10.0f;
+
+        neu::g_eventManager.Notify(event);
+
+        //play coin sound
+        neu::g_audioSystem.PlayAudio("hurt");
+
+        other->SetDestroy();
+    }
 }
 
 void EnemyComponent::OnCollisionExit(neu::Actor* other)
@@ -44,11 +67,28 @@ void EnemyComponent::OnNotify(const neu::Event& event)
         health -= std::get<float>(event.data);
         if (health <= 0)
         {
+            auto player = m_owner->GetScene()->GetActorFromName("Player");
+            if (player)
+            {
+                neu::Event event;
+                event.name = "EVENT_DROP";
+                event.receiver = player;
+                event.data = m_owner->m_transform.position;
+
+                neu::g_eventManager.Notify(event);
+                //auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
+                //actor->m_transform.position = m_owner->m_transform.position;
+                //actor->Initialize();
+
+                //auto phys = actor->GetComponent<neu::PhysicsComponent>();
+                //neu::Vector2 force = neu::Vector2::down * 10;
+
+                //if (phys) phys->ApplyForce(force);
+                //m_owner->GetScene()->Add(std::move(actor));
+            }
+
+            neu::g_audioSystem.PlayAudio("explosion");
             m_owner->SetDestroy();
-        }
-        if (event.name == "EVENT_HEAL")
-        {
-            health += std::get<float>(event.data);
         }
     }
 

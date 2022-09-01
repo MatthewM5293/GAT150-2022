@@ -39,13 +39,13 @@ namespace neu
 
     void CollisionComponent::OnCollisionEnter(Actor* other)
     {
-        std::cout << other->GetName() << std::endl;
+        //std::cout << other->GetName() << std::endl;
         if (m_enterFunction) m_enterFunction(other);
     }
 
     void CollisionComponent::OnCollisionExit(Actor* other)
     {
-        std::cout << other->GetName() << std::endl;
+        //std::cout << other->GetName() << std::endl;
         if(m_exitFunction) m_exitFunction(other);
     }
 

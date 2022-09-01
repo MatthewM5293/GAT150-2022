@@ -4,42 +4,48 @@
 
 namespace neu 
 {
+	PlayerComponent::~PlayerComponent()
+	{
+		g_eventManager.Unsubscribe("EVENT_HEAL", m_owner);
+		g_eventManager.Unsubscribe("EVENT_DROP", m_owner);
+	}
+
 	void PlayerComponent::Initialize()
 	{
 		CharacterComponent::Initialize();
-		g_eventManager.Subscribe("EVENT_HEALTH", std::bind(&CharacterComponent::OnNotify, this, std::placeholders::_1), m_owner);
+		g_eventManager.Subscribe("EVENT_HEAL", std::bind(&CharacterComponent::OnNotify, this, std::placeholders::_1), m_owner);
+		g_eventManager.Subscribe("EVENT_DROP", std::bind(&CharacterComponent::OnNotify, this, std::placeholders::_1), m_owner);
 	}
 
 	void PlayerComponent::Update()
 	{
 		Vector2 direction = Vector2::zero;
 
-		float p_speed = 100;
 		//input
-		auto left1 = neu::g_inputSystem.GetKeyState(neu::key_left) == neu::InputSystem::KeyState::Held;
+		//auto left1 = neu::g_inputSystem.GetKeyState(neu::key_left) == neu::InputSystem::KeyState::Held;
 		auto left2 = neu::g_inputSystem.GetKeyState(neu::key_a) == neu::InputSystem::KeyState::Held;
-		if (left1 || left2)
+		if (left2)
 		{
-			//m_owner->m_transform.rotation -= 180 * neu::g_time.deltaTime;
 			direction = Vector2::left;
 		}
 
-		auto right1 = neu::g_inputSystem.GetKeyState(neu::key_right) == neu::InputSystem::KeyState::Held;
+		//auto right1 = neu::g_inputSystem.GetKeyState(neu::key_right) == neu::InputSystem::KeyState::Held;
 		auto right2 = neu::g_inputSystem.GetKeyState(neu::key_d) == neu::InputSystem::KeyState::Held;
-		if (right1 || right2)
+		if (right2)
 		{
-			//m_owner->m_transform.rotation += 180 * neu::g_time.deltaTime;
 			direction = Vector2::right;
 		}
 
-		auto up1 = neu::g_inputSystem.GetKeyState(neu::key_up) == neu::InputSystem::KeyState::Held;
-		auto up2 = neu::g_inputSystem.GetKeyState(neu::key_w) == neu::InputSystem::KeyState::Held;
+		auto up1 = neu::g_inputSystem.GetKeyState(neu::key_up) == neu::InputSystem::KeyState::Pressed;
+		auto up2 = neu::g_inputSystem.GetKeyState(neu::key_w) == neu::InputSystem::KeyState::Pressed;
 		if (m_groundCount > 0 && up1 || m_groundCount > 0 && up2)
 		{
 			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)
 			{
 				component->ApplyForce(Vector2::up * jump);
+				//Jump sound
+				neu::g_audioSystem.PlayAudio("jump");
 			}
 
 		}
@@ -70,19 +76,50 @@ namespace neu
 			}
 			if (std::fabs(velocity.y) != 0)
 			{
-				animComponent->SetSequence("jump");
+				animComponent->SetSequence("hurt");
 			}
 		}
 
 
 		m_owner->m_transform.position += direction * 300 * g_time.deltaTime;
 
-		auto down1 = neu::g_inputSystem.GetKeyState(neu::key_down) == neu::InputSystem::KeyState::Held;
-		auto down2 = neu::g_inputSystem.GetKeyState(neu::key_s) == neu::InputSystem::KeyState::Held;
+		auto key_r = neu::g_inputSystem.GetKeyState(neu::key_right) == neu::InputSystem::KeyState::Pressed;
 		//set speed (move)
-		if (down1 || down2)
+		if (key_r)
 		{
+			//attack
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Fireball");
+			actor->m_transform.position = m_owner->m_transform.position;
+			actor->Initialize();
 			
+			auto phys = actor->GetComponent<PhysicsComponent>();
+			Vector2 force = neu::Vector2::right * 100;
+
+			if (phys) phys->ApplyForce(force);
+			m_owner->GetScene()->Add(std::move(actor));
+
+			//Laser_Shoot
+			neu::g_audioSystem.PlayAudio("shoot");
+
+		}
+		
+		auto key_l = neu::g_inputSystem.GetKeyState(neu::key_left) == neu::InputSystem::KeyState::Pressed;
+		//set speed (move)
+		if (key_l)
+		{
+			//attack
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Fireball");
+			actor->m_transform.position = m_owner->m_transform.position;
+			actor->Initialize();
+			
+			auto phys = actor->GetComponent<PhysicsComponent>();
+			Vector2 force = neu::Vector2::left * 100;
+
+			if (phys) phys->ApplyForce(force);
+			m_owner->GetScene()->Add(std::move(actor));
+			
+			//Laser_Shoot
+			neu::g_audioSystem.PlayAudio("shoot");
 		}
 
 		if (neu::g_inputSystem.GetKeyState(key_space) == neu::InputSystem::KeyState::Pressed)
@@ -102,6 +139,22 @@ namespace neu
 			camera->m_transform.position = math::Lerp(camera->m_transform.position, m_owner->m_transform.position, 2 * g_time.deltaTime);
 		}
 		
+		if (drop)
+		{
+			drop = false;
+			auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
+			actor->m_transform.position = dropLocation;
+			actor->Initialize();
+
+			auto phys = actor->GetComponent<neu::PhysicsComponent>();
+			neu::Vector2 force = neu::Vector2::down * 10;
+
+			if (phys) phys->ApplyForce(force);
+			m_owner->GetScene()->Add(std::move(actor));
+		}
+
+
+
 	}
 	bool PlayerComponent::Write(const rapidjson::Value& value) const
 	{
@@ -133,9 +186,18 @@ namespace neu
 			}
 
 		}
+		
+		if (event.name == "EVENT_DROP")
+		{
+			drop = true;
+			dropLocation = std::get<Vector2>(event.data);
+		}
 		if (event.name == "EVENT_HEAL")
 		{
-			health += std::get<float>(event.data);
+			if (health > 0)
+			{
+				health += std::get<float>(event.data);
+			}
 		}
 	}
 
@@ -143,22 +205,35 @@ namespace neu
 	{
 		if (other->GetName() == "Coin")
 		{
-			Event event;
-			event.name = "EVENT_ADD_POINTS";
-			event.data = 100;
+			{
+				Event event;
+				event.name = "EVENT_ADD_POINTS";
+				event.data = 100;
 
-			g_eventManager.Notify(event);
+				g_eventManager.Notify(event);
+
+			//play coin sound
+			neu::g_audioSystem.PlayAudio("coin");
 
 			other->SetDestroy();
-		}
-		if (other->GetName() == "Coin")
-		{
-			Event event;
-			event.name = "EVENT_HEAL";
-			event.data = 10;
+			}
 
-			g_eventManager.Notify(event);
+			{
+				Event event;
+				event.name = "EVENT_HEAL";
+				event.data = 10.0f;
+
+				g_eventManager.Notify(event);
+			}
 		}
+		//if (other->GetName() == "Coin")
+		//{
+		//	Event event;
+		//	event.name = "EVENT_HEAL";
+		//	event.data = 10.0f;
+
+		//	g_eventManager.Notify(event);
+		//}
 
 		if (other->GetTag() == "Enemy")
 		{
@@ -166,6 +241,8 @@ namespace neu
 			event.name = "EVENT_DAMAGE";
 			event.data = damage;
 			event.receiver = other;
+
+			neu::g_audioSystem.PlayAudio("hit");
 
 			g_eventManager.Notify(event);
 		}
