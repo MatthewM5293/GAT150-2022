@@ -7,7 +7,7 @@ namespace neu
 {
 	void ModelComponent::Update()
 	{
-		//
+		//by matt
 	}
 	void ModelComponent::Draw(Renderer& renderer)
 	{

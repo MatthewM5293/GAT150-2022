@@ -76,15 +76,6 @@ void EnemyComponent::OnNotify(const neu::Event& event)
                 event.data = m_owner->m_transform.position;
 
                 neu::g_eventManager.Notify(event);
-                //auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
-                //actor->m_transform.position = m_owner->m_transform.position;
-                //actor->Initialize();
-
-                //auto phys = actor->GetComponent<neu::PhysicsComponent>();
-                //neu::Vector2 force = neu::Vector2::down * 10;
-
-                //if (phys) phys->ApplyForce(force);
-                //m_owner->GetScene()->Add(std::move(actor));
             }
 
             neu::g_audioSystem.PlayAudio("explosion");

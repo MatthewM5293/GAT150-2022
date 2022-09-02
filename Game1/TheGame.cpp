@@ -35,7 +35,6 @@ void TheGame::Initialize()
 
 	neu::g_eventManager.Subscribe("EVENT_ADD_POINTS", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
 	neu::g_eventManager.Subscribe("EVENT_PLAYER_DEAD", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
-	//neu::g_eventManager.Subscribe("EVENT_HEAL", std::bind(&TheGame::OnNotify, this, std::placeholders::_1));
 }
 
 void TheGame::Shutdown()
@@ -57,25 +56,6 @@ void TheGame::Update()
 		break;
 	case TheGame::gameState::startLevel:
 		m_scene->GetActorFromName("Title2")->SetActive(false);
-
-		////coins
-		//for (int i = 0; i < 10; i++)
-		//{
-		//	auto actor = neu::Factory::Instance().Create<neu::Actor>("Coin");
-		//	actor->m_transform.position = { neu::randomf(0, 1200), 100.0f };
-		//	actor->Initialize();
-
-		//	m_scene->Add(std::move(actor));
-		//}
-		////ENEMIES
-		//for (int i = 0; i < 3; i++)
-		//{
-		//	auto actor = neu::Factory::Instance().Create<neu::Actor>("Ghost");
-		//	actor->m_transform.position = { neu::randomf(0, 1200), 100.0f };
-		//	actor->Initialize();
-
-		//	m_scene->Add(std::move(actor));
-		//}
 
 		{
 			auto actor = neu::Factory::Instance().Create<neu::Actor>("Player");

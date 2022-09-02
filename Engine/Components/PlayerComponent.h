@@ -5,7 +5,7 @@
 
 namespace neu
 {
-	class PlayerComponent : public CharacterComponent //public Component, public ICollision
+	class PlayerComponent : public CharacterComponent 
 	{
 	public:
 		PlayerComponent() = default;

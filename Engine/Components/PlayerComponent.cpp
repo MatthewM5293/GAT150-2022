@@ -22,14 +22,12 @@ namespace neu
 		Vector2 direction = Vector2::zero;
 
 		//input
-		//auto left1 = neu::g_inputSystem.GetKeyState(neu::key_left) == neu::InputSystem::KeyState::Held;
 		auto left2 = neu::g_inputSystem.GetKeyState(neu::key_a) == neu::InputSystem::KeyState::Held;
 		if (left2)
 		{
 			direction = Vector2::left;
 		}
 
-		//auto right1 = neu::g_inputSystem.GetKeyState(neu::key_right) == neu::InputSystem::KeyState::Held;
 		auto right2 = neu::g_inputSystem.GetKeyState(neu::key_d) == neu::InputSystem::KeyState::Held;
 		if (right2)
 		{
@@ -226,14 +224,6 @@ namespace neu
 				g_eventManager.Notify(event);
 			}
 		}
-		//if (other->GetName() == "Coin")
-		//{
-		//	Event event;
-		//	event.name = "EVENT_HEAL";
-		//	event.data = 10.0f;
-
-		//	g_eventManager.Notify(event);
-		//}
 
 		if (other->GetTag() == "Enemy")
 		{
